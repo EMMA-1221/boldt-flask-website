@@ -172,7 +172,7 @@ r_e("submit_form").addEventListener("click", () => {
     r_e("errors_list").innerHTML += "Fix errors above to run calculator <br>";
   } else {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://127.0.0.1:5000/", true);
+    xhr.open("POST", "https://boldt-flask-website.onrender.com/", true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     let body = JSON.stringify({
       industry: r_e("Industry").value,
@@ -224,3 +224,4 @@ r_e("submit_form").addEventListener("click", () => {
     };
   }
 });
+

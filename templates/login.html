@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+  <nav class="navbar has-background-danger-dark">
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item has-text-white" href="/">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-6" style="max-width:400px">
+    <h1 class="is-size-2 mb-4">Login</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="notification is-danger">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
+    <div class="field">
+      <label class="label">Email</label>
+      <input class="input" type="email" name="email" form="loginform">
+    </div>
+    <div class="field">
+      <label class="label">Password</label>
+      <input class="input" type="password" name="password" form="loginform">
+    </div>
+    <form id="loginform" method="POST">
+      <button class="button is-danger mt-3" type="submit">Login</button>
+    </form>
+    <p class="mt-3">Don't have an account? <a href="/register">Register</a></p>
+  </div>
+</body>
+</html>

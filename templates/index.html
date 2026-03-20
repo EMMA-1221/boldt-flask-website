@@ -5,30 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BOLDT Team Selector</title>
-    <!-- Bulma CDN -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
-    <!-- Font Awesome CDN -->
     <script
       src="https://kit.fontawesome.com/8a80b728dc.js"
       crossorigin="anonymous"
     ></script>
   </head>
   <body>
-    <!-- NavBar -->
     <nav
       class="navbar has-background-danger-dark"
       role="navigation"
       aria-label="main navigation"
     >
       <div class="navbar-brand">
-        <!-- <a class="navbar-item" href="https://boldt.com">
-          <img src="Boldt Logo.png" width="100px" />
-        </a> -->
-
-        <a
+        
           role="button"
           class="navbar-burger"
           aria-label="menu"
@@ -45,16 +38,31 @@
         <div class="navbar-start">
           <a id="home_button" class="navbar-item has-text-white"> Home </a>
 
+          {% if current_user.is_authenticated %}
           <a id="guidance_button" class="navbar-item has-text-white">
             Team Building Guidance
           </a>
-
           <a id="estimator_button" class="navbar-item has-text-white">
-            Team Performance Estimator</a
-          >
+            Team Performance Estimator</a>
+          {% endif %}
+        </div>
+
+        <!-- ✅ ADDED: login/logout buttons -->
+        <div class="navbar-end">
+          {% if current_user.is_authenticated %}
+            {% if current_user.is_admin %}
+              <a class="navbar-item has-text-white" href="/admin">Admin</a>
+            {% endif %}
+            <span class="navbar-item has-text-white">Hi, {{ current_user.username }}</span>
+            <a class="navbar-item has-text-white" href="/logout">Logout</a>
+          {% else %}
+            <a class="navbar-item has-text-white" href="/login">Login</a>
+            <a class="navbar-item has-text-white" href="/register">Register</a>
+          {% endif %}
         </div>
       </div>
     </nav>
+
     <div id="home_div">
       <div class="p-6">
         <h1 class="is-size-1 mb-6">Welcome to the Team Development Tool!</h1>
@@ -64,11 +72,12 @@
           There are two methods for team development strategies:
           <ul class="list">
             <li class="list-item">Team Building Guidance</li>
-            <li ckass="list-item">Team Performance Estimator</li>
+            <li class="list-item">Team Performance Estimator</li>
           </ul>
         </div>
       </div>
     </div>
+
     <div id="guidance_div" class="p-6 is-hidden">
       <h1 class="is-size-1">Team Buidling Guidance</h1>
       <p class="my-4">
@@ -169,7 +178,7 @@
                 Persuasive Outgoing Trait
                 <ul>
                   <li>Focus is on future and opportunities</li>
-                  <li>What if’s (brainstorming)</li>
+                  <li>What if's (brainstorming)</li>
                   <li>Innovation</li>
                   <li>Flexible, spontaneous</li>
                   <li>Problem solving</li>
@@ -265,7 +274,7 @@
                 <ul>
                   <li>Focus is process and systems</li>
                   <li>Order, structure, detailed</li>
-                  <li>“By the book”</li>
+                  <li>"By the book"</li>
                   <li>Sees things as black or white</li>
                   <li>Clearly defined roles</li>
                   <li>Fair and equal treatment</li>
@@ -280,7 +289,7 @@
                   <li>Analysis paralysis, misses the big picture</li>
                   <li>Focuses on 1% wrong, not 99% right</li>
                   <li>Micromanager (until trust is established)</li>
-                  <li>“Know it all”</li>
+                  <li>"Know it all"</li>
                   <li>Resists change, overly cautious</li>
                   <li>Procrastinates, delays decisions (has to be right)</li>
                   <li>Sensitive to criticism</li>
@@ -289,7 +298,7 @@
               <td>
                 Independent Trait
                 <ul>
-                  <li>“Big Picture”</li>
+                  <li>"Big Picture"</li>
                   <li>Candid communicator</li>
                   <li>Restists controls and structure</li>
                   <li>Flexible thinker</li>
@@ -311,6 +320,7 @@
         </table>
       </div>
     </div>
+
     <div id="estimator_div" class="p-6 is-hidden">
       <h1 class="is-size-1">Team Performance Estimator</h1>
       <div class="field py-3">
@@ -385,86 +395,26 @@
               <div class="column">
                 <div class="field p-3">
                   <div class="control">
-                    <label class="label" id="team_mem_1_lab"
-                      >Team Member 1</label
-                    >
+                    <label class="label" id="team_mem_1_lab">Team Member 1</label>
                     <input type="text" list="members" id="team_mem_1" />
-                    <label class="label" id="team_mem_2_lab"
-                      >Team Member 2</label
-                    >
+                    <label class="label" id="team_mem_2_lab">Team Member 2</label>
                     <input type="text" list="members" id="team_mem_2" />
-                    <label class="label is-hidden" id="team_mem_3_lab"
-                      >Team Member 3</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_3"
-                    />
-                    <label class="label is-hidden" id="team_mem_4_lab"
-                      >Team Member 4</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_4"
-                    />
-                    <label class="label is-hidden" id="team_mem_5_lab"
-                      >Team Member 5</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_5"
-                    />
-                    <label class="label is-hidden" id="team_mem_6_lab"
-                      >Team Member 6</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_6"
-                    />
-                    <label class="label is-hidden" id="team_mem_7_lab"
-                      >Team Member 7</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_7"
-                    />
-                    <label class="label is-hidden" id="team_mem_8_lab"
-                      >Team Member 8</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_8"
-                    />
-                    <label class="label is-hidden" id="team_mem_9_lab"
-                      >Team Member 9</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_9"
-                    />
-                    <label class="label is-hidden" id="team_mem_10_lab"
-                      >Team Member 10</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_10"
-                    />
+                    <label class="label is-hidden" id="team_mem_3_lab">Team Member 3</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_3" />
+                    <label class="label is-hidden" id="team_mem_4_lab">Team Member 4</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_4" />
+                    <label class="label is-hidden" id="team_mem_5_lab">Team Member 5</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_5" />
+                    <label class="label is-hidden" id="team_mem_6_lab">Team Member 6</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_6" />
+                    <label class="label is-hidden" id="team_mem_7_lab">Team Member 7</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_7" />
+                    <label class="label is-hidden" id="team_mem_8_lab">Team Member 8</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_8" />
+                    <label class="label is-hidden" id="team_mem_9_lab">Team Member 9</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_9" />
+                    <label class="label is-hidden" id="team_mem_10_lab">Team Member 10</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_10" />
                   </div>
                   <datalist id="members"> </datalist>
                 </div>
@@ -476,78 +426,22 @@
                     <input type="text" list="roles" id="team_mem_1_role" />
                     <label class="label" id="team_mem_2_role_lab">Role</label>
                     <input type="text" list="roles" id="team_mem_2_role" />
-                    <label class="label is-hidden" id="team_mem_3_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_3_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_4_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_4_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_5_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_5_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_6_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_6_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_7_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_7_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_8_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_8_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_9_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_9_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_10_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_10_role"
-                    />
+                    <label class="label is-hidden" id="team_mem_3_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_3_role" />
+                    <label class="label is-hidden" id="team_mem_4_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_4_role" />
+                    <label class="label is-hidden" id="team_mem_5_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_5_role" />
+                    <label class="label is-hidden" id="team_mem_6_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_6_role" />
+                    <label class="label is-hidden" id="team_mem_7_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_7_role" />
+                    <label class="label is-hidden" id="team_mem_8_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_8_role" />
+                    <label class="label is-hidden" id="team_mem_9_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_9_role" />
+                    <label class="label is-hidden" id="team_mem_10_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_10_role" />
                   </div>
                 </div>
                 <datalist id="roles">
@@ -570,34 +464,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Overall</td>
-                  <td id="overall_val"></td>
-                </tr>
-                <tr>
-                  <td>Industry</td>
-                  <td id="industry_val"></td>
-                </tr>
-                <tr>
-                  <td>Revenue</td>
-                  <td id="revenue_val"></td>
-                </tr>
-                <tr>
-                  <td>Length</td>
-                  <td id="length_val"></td>
-                </tr>
-                <tr>
-                  <td>Contract Type</td>
-                  <td id="contract_val"></td>
-                </tr>
-                <tr>
-                  <td>Average</td>
-                  <td id="average_val"></td>
-                </tr>
-                <tr>
-                  <td>Result</td>
-                  <td id="result_val"></td>
-                </tr>
+                <tr><td>Overall</td><td id="overall_val"></td></tr>
+                <tr><td>Industry</td><td id="industry_val"></td></tr>
+                <tr><td>Revenue</td><td id="revenue_val"></td></tr>
+                <tr><td>Length</td><td id="length_val"></td></tr>
+                <tr><td>Contract Type</td><td id="contract_val"></td></tr>
+                <tr><td>Average</td><td id="average_val"></td></tr>
+                <tr><td>Result</td><td id="result_val"></td></tr>
               </tbody>
             </table>
           </div>
@@ -606,9 +479,7 @@
           <div class="field">
             <div class="control">
               <button id="submit_form" class="button is-success">Submit</button>
-              <button id="clear_form" class="button is-danger">
-                Clear Form
-              </button>
+              <button id="clear_form" class="button is-danger">Clear Form</button>
             </div>
           </div>
         </div>
@@ -671,88 +542,36 @@
             </select>
           </div>
         </div>
-        <div id="lin_mod_all" class="box">
-          The full model relies on elements from the Project Manager and Project
-          Coordinator - try changing the staffing to this role.
-        </div>
-        <div id="lin_mod_commercial" class="box">
-          The commerical model relies only on the number of employees per
-          million dollars. Can increase number of employees staffed to project.
-        </div>
-        <div id="lin_mod_industrial" class="box">
-          The industrial model relies only on the number of employees per
-          million dollars. Can increase number of employees staffed to project.
-        </div>
-        <div id="lin_mod_healthcare" class="box">
-          The healthcare model relies on a number of variables and should change
-          easily by adjusting the proposed team.
-        </div>
-        <div id="lin_mod_power" class="box">
-          The power model relies only on the number of employees per million
-          dollars. Can increase number of employees staffed to project.
-        </div>
-        <div id="lin_mod_institutional" class="box">
-          The institutional model relies on elements from the Project Manager -
-          try changing the staffing to this role.
-        </div>
-        <div id="lin_mod_1M-3M" class="box">
-          The $1M-3M model relies on elements from the Project Manager - try
-          changing the staffing to this role.
-        </div>
-        <div id="lin_mod_3M-10M" class="box">
-          The $3M-10M model relies on a number of variables and should change
-          easily by adjusting the proposed team.
-        </div>
-        <div id="lin_mod_10M" class="box">
-          The $10M+ model relies on eleements from the Project Manager, Project
-          Executive, and the team as a whole. Try decreasing the project manager
-          and project executive's dominance scores.
-        </div>
-        <div id="lin_mod_lessyr" class="box">
-          The less than one year model only relies on the distance from the
-          corporate office and cannot be changed.
-        </div>
-        <div id="lin_mod_greatyr" class="box">
-          The greater than one year model relies on elements from the Project
-          Manager, PRoject Engineer, Project Coordinator, and Project Executive.
-          Try decreasing the project managers conscientiousness, increasing the
-          project engineers primary extroversion, increasing the project
-          coordinators environmental extroversion, decreasing the project
-          coordinators environmental patience, and increasing the project
-          executives environmental patience.
-        </div>
-        <div id="lin_mod_LS" class="box">
-          The lump sum model relies only on the number of employees per million
-          dollars. You can try increasing the number of employees staffed to
-          project.
-        </div>
-        <div id="lin_mod_TM" class="box">
-          The Time and Material model relies on a number of variables and should
-          change easily by adjusting the proposed team.
-        </div>
-        <div id="lin_mod_GMP" class="box">
-          The Guarenteed Max Price model relies on the Superintendent and
-          Project Coordinator. Try adjusting these roles; specifically
-          decreasing superintendent environental dominance.
-        </div>
-        <div id="lin_mod_TM-GMP" class="box">
-          The Time and Material with a GMP model relies on the Project Manager,
-          Project Engineer, Superintendent, Project Executive, and the overall
-          distance of the team from their homes. Try adjusting these roles to
-          find a better team.
-        </div>
+        <div id="lin_mod_all" class="box">The full model relies on elements from the Project Manager and Project Coordinator - try changing the staffing to this role.</div>
+        <div id="lin_mod_commercial" class="box">The commerical model relies only on the number of employees per million dollars. Can increase number of employees staffed to project.</div>
+        <div id="lin_mod_industrial" class="box">The industrial model relies only on the number of employees per million dollars. Can increase number of employees staffed to project.</div>
+        <div id="lin_mod_healthcare" class="box">The healthcare model relies on a number of variables and should change easily by adjusting the proposed team.</div>
+        <div id="lin_mod_power" class="box">The power model relies only on the number of employees per million dollars. Can increase number of employees staffed to project.</div>
+        <div id="lin_mod_institutional" class="box">The institutional model relies on elements from the Project Manager - try changing the staffing to this role.</div>
+        <div id="lin_mod_1M-3M" class="box">The $1M-3M model relies on elements from the Project Manager - try changing the staffing to this role.</div>
+        <div id="lin_mod_3M-10M" class="box">The $3M-10M model relies on a number of variables and should change easily by adjusting the proposed team.</div>
+        <div id="lin_mod_10M" class="box">The $10M+ model relies on eleements from the Project Manager, Project Executive, and the team as a whole. Try decreasing the project manager and project executive's dominance scores.</div>
+        <div id="lin_mod_lessyr" class="box">The less than one year model only relies on the distance from the corporate office and cannot be changed.</div>
+        <div id="lin_mod_greatyr" class="box">The greater than one year model relies on elements from the Project Manager, PRoject Engineer, Project Coordinator, and Project Executive.</div>
+        <div id="lin_mod_LS" class="box">The lump sum model relies only on the number of employees per million dollars. You can try increasing the number of employees staffed to project.</div>
+        <div id="lin_mod_TM" class="box">The Time and Material model relies on a number of variables and should change easily by adjusting the proposed team.</div>
+        <div id="lin_mod_GMP" class="box">The Guarenteed Max Price model relies on the Superintendent and Project Coordinator. Try adjusting these roles; specifically decreasing superintendent environental dominance.</div>
+        <div id="lin_mod_TM-GMP" class="box">The Time and Material with a GMP model relies on the Project Manager, Project Engineer, Superintendent, Project Executive, and the overall distance of the team from their homes.</div>
       </div>
     </div>
-    <footer
-      class="footer px-0 pb-6 has-text-centered has-background-danger-dark"
-    >
+
+    <footer class="footer px-0 pb-6 has-text-centered has-background-danger-dark">
       <p class="has-text-white p-3">
         Developed by Calob Limberg, in partial fulfillment of the requirements
-        for the degree of Master of Science at the University of Wisconsin -
-        Madison.
+        for the degree of Master of Science at the University of Wisconsin - Madison.
       </p>
     </footer>
-     <script src="{{ url_for('static', filename='app.js') }}"></script> 
+
+    {% if current_user.is_authenticated %}
+    <script>
+      let team_names = {{ team_names | tojson }};
+    </script>
+    {% endif %}
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
   </body>
 </html>
-

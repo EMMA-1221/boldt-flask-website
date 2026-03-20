@@ -752,6 +752,9 @@
         Madison.
       </p>
     </footer>
+    <script>
+      let team_names = {{ team_names | tojson }};
+    </script>
     <script src="{{ url_for('static', filename='app.js') }}"></script> 
   </body>
 </html>

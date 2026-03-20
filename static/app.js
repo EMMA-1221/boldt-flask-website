@@ -171,7 +171,7 @@ r_e("submit_form").addEventListener("click", () => {
     r_e("errors_list").innerHTML += "Fix errors above to run calculator <br>";
   } else {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/", true); 
+    xhr.open("POST", "/tool", true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     let body = JSON.stringify({
       industry: r_e("Industry").value,

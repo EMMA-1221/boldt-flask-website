@@ -1,27 +1,24 @@
 #imports
 from flask import Flask, request, jsonify, render_template
 import os
-import codecs
-import re
 import json
 from dataset import data_import, project_data
 from Models import all_data_model, industry_model, revenue_model, length_model, contract_model
+
 app = Flask(__name__)
-P3 = 0
-zip_codes = 0
+
+# Load data once at startup
+print("Loading data...")
+data = data_import()
+P3 = data[0]
+zip_codes = data[1]
+names = P3['Name'].to_list()
+print("Data loaded!")
+
 @app.route("/", methods=['GET', 'POST'])
 def home():
     if request.method == "GET":
-        global P3
-        global zip_codes
-        data = data_import()
-        P3 = data[0]
-        zip_codes = data[1]
-        names = P3['Name'].to_list()
-        # delete：read app.js 's code（Railway 文件系统只读会报错）
-        # delete：re.sub 修改 js code
-        # delete：write app.js code
-        return render_template('index.html', team_names=names)  # change：把 names 传给模板
+        return render_template('index.html', team_names=names)
     else:
         data = request.json
         row = project_data(data, P3, zip_codes)
@@ -49,7 +46,8 @@ def home():
                     'Contract': str(contract),
                     'Average': str(avg),
                     'Result': result}
-        return json.dumps(response)        
+        return json.dumps(response)
+
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)

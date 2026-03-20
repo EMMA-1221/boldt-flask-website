@@ -20,15 +20,15 @@
         <div class="notification is-danger">{{ messages[0] }}</div>
       {% endif %}
     {% endwith %}
-    <div class="field">
-      <label class="label">Email</label>
-      <input class="input" type="email" name="email" form="loginform">
-    </div>
-    <div class="field">
-      <label class="label">Password</label>
-      <input class="input" type="password" name="password" form="loginform">
-    </div>
-    <form id="loginform" method="POST">
+    <form method="POST">
+      <div class="field">
+        <label class="label">Email</label>
+        <input class="input" type="email" name="email" required>
+      </div>
+      <div class="field">
+        <label class="label">Password</label>
+        <input class="input" type="password" name="password" required>
+      </div>
       <button class="button is-danger mt-3" type="submit">Login</button>
     </form>
     <p class="mt-3">Don't have an account? <a href="/register">Register</a></p>

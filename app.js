@@ -55,7 +55,6 @@ r_e("clear_form").addEventListener("click", () => {
   r_e("Revenue").value = "";
   r_e("Length").value = "";
   r_e("Contract").value = "empty";
-  r_e("Zip").value = "";
   for (let x = 1; x <= 10; x++) {
     r_e(`team_mem_${x}`).value = "";
     r_e(`team_mem_${x}_role`).value = "";
@@ -75,15 +74,13 @@ r_e("clear_form").addEventListener("click", () => {
   r_e("errors_list").innerHTML = "";
 });
 
-// ✅ CHANGE 1: Removed hardcoded team_names declaration.
-// team_names is now injected via <script> in index.html from Flask.
-// let team_names = ["member1", "member2", "member3", "member4"];  <-- deleted
+// team_names is injected via <script> in index.html from Flask
 team_names.forEach((member) => {
   r_e("members").innerHTML += `<option value="${member}"></option>`;
 });
 let roles = ["PM", "PE", "PEx", "Sup", "PC"];
 
-// add team members
+// add/remove team members
 let num_members = 2;
 r_e("rm_team_mem").addEventListener("click", () => {
   if (num_members > 1) {
@@ -149,7 +146,7 @@ r_e("submit_form").addEventListener("click", () => {
     r_e("errors_list").innerHTML += "Fix errors above to run calculator <br>";
   } else {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/", true);  // 改动2：从 "http://127.0.0.1:5000/" 改为 "/" (相对路径)
+    xhr.open("POST", "/tool", true);
     xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     let body = JSON.stringify({
       industry: r_e("Industry").value,

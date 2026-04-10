@@ -252,4 +252,8 @@ def project_data(data, P3, zip_codes):
             P3_data[f'{role}_env_c'] /= len(roles[role])
 
     project_data.update(P3_data)
+    print(f"Total employees loaded: {len(P3)}")
+    print(f"Cons null count: {P3['Cons'].isna().sum()}")
+    print(f"Cons zero count: {(P3['Cons'] == 0).sum()}")
+    print(P3[['Name', 'Cons']].head(10))
     return project_data

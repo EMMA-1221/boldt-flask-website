@@ -56,18 +56,9 @@ def data_import():
     # convert months
     def monthToNum(shortMonth):
         return {
-            'Jan': '01',
-            'Feb': '02',
-            'Mar': '03',
-            'Apr': '04',
-            'May': '05',
-            'Jun': '06',
-            'Jul': '07',
-            'Aug': '08',
-            'Sep': '09',
-            'Oct': '10',
-            'Nov': '11',
-            'Dec': '12'
+            'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04',
+            'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08',
+            'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'
         }[shortMonth]
 
     # read P3 data for conscientiousness
@@ -78,13 +69,19 @@ def data_import():
     Cons['Year'] = Date.str[2].astype(int) + 2000
     Cons['Survey_Date'] = Cons['Month'].astype(str) + '/' + Cons['Day'].astype(str) + '/' + Cons['Year'].astype(str)
     Cons = Cons.rename(columns={'Conscientiousness': 'Cons'})
+    Cons['Name'] = (Cons['First Name'].str.strip() + ' ' + Cons['Last Name'].str.strip()).str.lower()
 
-    # combine datasets
-    P3.sort_values(['Last Name', 'First Name', 'Survey_Date'], inplace=True, ignore_index=True)
-    Cons.sort_values(['Last Name', 'First Name', 'Survey_Date'], inplace=True, ignore_index=True)
-    P3 = pd.concat([P3, Cons['Cons']], axis=1)
-
+    # build P3 Name column first
     P3['Name'] = (P3['First Name'].str.strip() + ' ' + P3['Last Name'].str.strip()).str.lower()
+
+    # take most recent Cons per person
+    Cons['Survey_Date'] = pd.to_datetime(Cons['Survey_Date'])
+    Cons = Cons.sort_values('Survey_Date', ascending=False)
+    Cons = Cons.drop_duplicates(subset=['Name'])
+
+    # merge Cons into P3 by Name (correct alignment)
+    P3 = P3.merge(Cons[['Name', 'Cons']], on='Name', how='left')
+
     P3 = P3[['Name', 'First Name', 'Last Name', 'Survey_Date',
              'Pri_D', 'Pri_E', 'Pri_P', 'Pri_C',
              'Cons', 'Env_D', 'Env_E', 'Env_P', 'Env_C',
@@ -97,11 +94,14 @@ def data_import():
     P3['Last'] = P3['Last'].str.strip().str.lower()
     P3 = P3.sort_values(['Last', 'First'], ignore_index=True)
 
-    # take most recent survey
+    # take most recent survey per person
     P3['Survey_Date'] = pd.to_datetime(P3['Survey_Date'])
     P3 = P3.sort_values(['First', 'Last', 'Survey_Date'], ascending=False)
     P3 = P3.drop_duplicates(subset=['Name'])
     P3 = P3.sort_values(['First', 'Last'], ascending=True).reset_index(drop=True)
+
+    # fill missing Cons with 0
+    P3['Cons'] = P3['Cons'].fillna(0)
 
     # add flex to P3 data
     P3['Total_Flex'] = 0
@@ -114,31 +114,23 @@ def data_import():
         )
         P3.at[index, 'Total_Flex'] = flex
 
-    # keep original employee names instead of employee_xxx mapping
-    zip_codes = pd.read_csv(os.path.join('Databases', 'Employee Zip Codes.csv'))
-    zip_codes['Name'] = (zip_codes['First Name'].str.strip() + ' ' + zip_codes['Last Name'].str.strip()).str.lower()
-    zip_codes = zip_codes[['Name', 'Zip Code']].drop_duplicates().reset_index(drop=True)
-
-    # only keep employees that also appear in zip code file
-    P3['include?'] = P3['Name'].isin(zip_codes['Name']).astype(int)
-    P3 = P3[P3['include?'] == 1].reset_index(drop=True)
+    # all employees default to zip code 53703
+    zip_codes = pd.DataFrame({
+        'Name': P3['Name'].tolist(),
+        'Zip Code': ['53703'] * len(P3)
+    })
 
     return [P3, zip_codes]
 
 
 def project_data(data, P3, zip_codes):
-    errors = ''
-
-    # project data is row
     project_data = {}
 
-    # categorical variables
     project_data['industry'] = data['industry']
     project_data['revenue'] = int(data['revenue'].replace(',', ''))
     project_data['contract'] = data['contract']
     project_data['length'] = int(data['length'].replace(',', ''))
 
-    # find employees
     num_emp = 0
     roles = {'PM': [], 'PE': [], 'PC': [], 'Sup': [], 'PEx': []}
     team = []
@@ -151,32 +143,15 @@ def project_data(data, P3, zip_codes):
             roles[role] += [name]
             team += [name]
 
-    # variables
     project_data['sum_emp_std'] = num_emp / project_data['revenue'] * 1000000
 
-    # distance
-    try:
-        us = pgeocode.GeoDistance('US')
-        project_data['corp_dist'] = us.query_postal_code('54911', data["zip"]) * .621371
-        project_data['team_dist'] = 0
+    # distance - all employees use default zip 53703
+    us = pgeocode.GeoDistance('US')
+    project_data['corp_dist'] = us.query_postal_code('54911', data["zip"]) * .621371
+    team_dist = us.query_postal_code('53703', data["zip"]) * .621371
+    project_data['team_dist'] = team_dist
 
-        for emp in team:
-            dist = us.query_postal_code(
-                str(zip_codes[zip_codes['Name'] == emp]['Zip Code'].item()),
-                data["zip"]
-            ) * .621371
-
-            project_data['team_dist'] += dist
-
-            if math.isnan(dist):
-                return f'{emp} has missing or invalid zip code - please fix to continue'
-
-        project_data['team_dist'] = project_data['team_dist'] / len(team)
-
-    except ValueError:
-        return f'{emp} has missing or invalid zip code - please fix to continue'
-
-    # team variables
+    # team P3 variables
     P3_data = {}
     P3_data['team_flex'] = 0
     P3_data['team_decision_style'] = 0
@@ -227,56 +202,19 @@ def project_data(data, P3, zip_codes):
         P3_data['monitoring'] += P3[P3['Name'] == member]['Self-Monitoring'].item()
         P3_data['proactivity'] += P3[P3['Name'] == member]['Proactivity'].item()
 
-    # average
     P3_data = {k: v / len(team) for k, v in P3_data.items()}
 
-    # role variables
     medians = {
-        'PM_pri_d': -7,
-        'PM_pri_e': -3,
-        'PM_pri_p': 2,
-        'PM_pri_c': 9,
-        'PM_cons': 42,
-        'PM_env_d': 0,
-        'PM_env_e': -7,
-        'PM_env_p': 3,
-        'PM_env_c': 4,
-        'PE_pri_d': -10,
-        'PE_pri_e': -2,
-        'PE_pri_p': 4,
-        'PE_pri_c': 8,
-        'PE_cons': 40,
-        'PE_env_d': -2,
-        'PE_env_e': -6,
-        'PE_env_p': 6,
-        'PE_env_c': 4,
-        'PC_pri_d': -15,
-        'PC_pri_e': -3,
-        'PC_pri_p': 8,
-        'PC_pri_c': 11,
-        'PC_cons': 42,
-        'PC_env_d': -10,
-        'PC_env_e': -6,
-        'PC_env_p': 8,
-        'PC_env_c': 7,
-        'Sup_pri_d': -4,
-        'Sup_pri_e': -5,
-        'Sup_pri_p': 4,
-        'Sup_pri_c': 10,
-        'Sup_cons': 40,
-        'Sup_env_d': 1,
-        'Sup_env_e': -7,
-        'Sup_env_p': 3,
-        'Sup_env_c': 4,
-        'PEx_pri_d': -6,
-        'PEx_pri_e': -3,
-        'PEx_pri_p': 3,
-        'PEx_pri_c': 7,
-        'PEx_cons': 37,
-        'PEx_env_d': 0,
-        'PEx_env_e': -8,
-        'PEx_env_p': 3,
-        'PEx_env_c': 2
+        'PM_pri_d': -7, 'PM_pri_e': -3, 'PM_pri_p': 2, 'PM_pri_c': 9,
+        'PM_cons': 42, 'PM_env_d': 0, 'PM_env_e': -7, 'PM_env_p': 3, 'PM_env_c': 4,
+        'PE_pri_d': -10, 'PE_pri_e': -2, 'PE_pri_p': 4, 'PE_pri_c': 8,
+        'PE_cons': 40, 'PE_env_d': -2, 'PE_env_e': -6, 'PE_env_p': 6, 'PE_env_c': 4,
+        'PC_pri_d': -15, 'PC_pri_e': -3, 'PC_pri_p': 8, 'PC_pri_c': 11,
+        'PC_cons': 42, 'PC_env_d': -10, 'PC_env_e': -6, 'PC_env_p': 8, 'PC_env_c': 7,
+        'Sup_pri_d': -4, 'Sup_pri_e': -5, 'Sup_pri_p': 4, 'Sup_pri_c': 10,
+        'Sup_cons': 40, 'Sup_env_d': 1, 'Sup_env_e': -7, 'Sup_env_p': 3, 'Sup_env_c': 4,
+        'PEx_pri_d': -6, 'PEx_pri_e': -3, 'PEx_pri_p': 3, 'PEx_pri_c': 7,
+        'PEx_cons': 37, 'PEx_env_d': 0, 'PEx_env_e': -8, 'PEx_env_p': 3, 'PEx_env_c': 2
     }
 
     for role in ['PM', 'PE', 'PEx', 'PC', 'Sup']:
@@ -303,15 +241,15 @@ def project_data(data, P3, zip_codes):
                 P3_data[f'{role}_env_p'] += P3[P3['Name'] == member]['Env_P'].item()
                 P3_data[f'{role}_env_c'] += P3[P3['Name'] == member]['Env_C'].item()
 
-            P3_data[f'{role}_pri_d'] = P3_data[f'{role}_pri_d'] / len(roles[role])
-            P3_data[f'{role}_pri_e'] = P3_data[f'{role}_pri_e'] / len(roles[role])
-            P3_data[f'{role}_pri_p'] = P3_data[f'{role}_pri_p'] / len(roles[role])
-            P3_data[f'{role}_pri_c'] = P3_data[f'{role}_pri_c'] / len(roles[role])
-            P3_data[f'{role}_cons'] = P3_data[f'{role}_cons'] / len(roles[role])
-            P3_data[f'{role}_env_d'] = P3_data[f'{role}_env_d'] / len(roles[role])
-            P3_data[f'{role}_env_e'] = P3_data[f'{role}_env_e'] / len(roles[role])
-            P3_data[f'{role}_env_p'] = P3_data[f'{role}_env_p'] / len(roles[role])
-            P3_data[f'{role}_env_c'] = P3_data[f'{role}_env_c'] / len(roles[role])
+            P3_data[f'{role}_pri_d'] /= len(roles[role])
+            P3_data[f'{role}_pri_e'] /= len(roles[role])
+            P3_data[f'{role}_pri_p'] /= len(roles[role])
+            P3_data[f'{role}_pri_c'] /= len(roles[role])
+            P3_data[f'{role}_cons'] /= len(roles[role])
+            P3_data[f'{role}_env_d'] /= len(roles[role])
+            P3_data[f'{role}_env_e'] /= len(roles[role])
+            P3_data[f'{role}_env_p'] /= len(roles[role])
+            P3_data[f'{role}_env_c'] /= len(roles[role])
 
     project_data.update(P3_data)
     return project_data

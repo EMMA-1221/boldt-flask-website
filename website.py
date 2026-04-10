@@ -33,7 +33,7 @@ print("Data loaded!")
 
 @app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template('index.html', team_names=names, logged_in=False)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

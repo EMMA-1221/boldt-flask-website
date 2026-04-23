@@ -79,15 +79,30 @@ def data_import():
     Cons = Cons.sort_values('Survey_Date', ascending=False)
     Cons = Cons.drop_duplicates(subset=['Name'])
 
-    # merge Cons into P3 by Name (correct alignment)
+    # merge Cons into P3 by Name
     P3 = P3.merge(Cons[['Name', 'Cons']], on='Name', how='left')
+
+    # read Drake P3 Profiles for Learning Style
+    Drake = pd.read_excel(os.path.join('Databases', 'Drake_P3_Profiles.xlsx'), engine='openpyxl')
+    Drake['Name'] = (Drake['FIRST NAME'].str.strip() + ' ' + Drake['LAST NAME'].str.strip()).str.lower()
+    Drake = Drake.drop_duplicates(subset=['Name'])
+    Drake = Drake[['Name', 'LEARNING STYLE']]
+    Drake = Drake.rename(columns={'LEARNING STYLE': 'Learning_Style'})
+
+    # merge Learning Style into P3
+    P3 = P3.merge(Drake[['Name', 'Learning_Style']], on='Name', how='left')
+
+    # create binary columns for Pragmatist and Reflector
+    P3['Is_Pragmatist'] = (P3['Learning_Style'] == 'Pragmatist').astype(int)
+    P3['Is_Reflector'] = (P3['Learning_Style'] == 'Reflector').astype(int)
 
     P3 = P3[['Name', 'First Name', 'Last Name', 'Survey_Date',
              'Pri_D', 'Pri_E', 'Pri_P', 'Pri_C',
              'Cons', 'Env_D', 'Env_E', 'Env_P', 'Env_C',
              'High_Trait', 'Low_Trait', 'Decision_Style', 'Leadership_Style',
              'Energy_Category', 'Stress_Category', 'Energy', 'Stress',
-             'Proactivity', 'Self-Monitoring']]
+             'Proactivity', 'Self-Monitoring',
+             'Learning_Style', 'Is_Pragmatist', 'Is_Reflector']]
 
     P3.rename(columns={'First Name': 'First', 'Last Name': 'Last'}, inplace=True)
     P3['First'] = P3['First'].str.strip().str.lower()
@@ -100,8 +115,10 @@ def data_import():
     P3 = P3.drop_duplicates(subset=['Name'])
     P3 = P3.sort_values(['First', 'Last'], ascending=True).reset_index(drop=True)
 
-    # fill missing Cons with 0
+    # fill missing values
     P3['Cons'] = P3['Cons'].fillna(0)
+    P3['Is_Pragmatist'] = P3['Is_Pragmatist'].fillna(0)
+    P3['Is_Reflector'] = P3['Is_Reflector'].fillna(0)
 
     # add flex to P3 data
     P3['Total_Flex'] = 0
@@ -119,6 +136,12 @@ def data_import():
         'Name': P3['Name'].tolist(),
         'Zip Code': ['53703'] * len(P3)
     })
+
+    print(f"Total employees loaded: {len(P3)}")
+    print(f"Cons null count: {P3['Cons'].isna().sum()}")
+    print(f"Cons zero count: {(P3['Cons'] == 0).sum()}")
+    print(f"Is_Pragmatist count: {P3['Is_Pragmatist'].sum()}")
+    print(f"Is_Reflector count: {P3['Is_Reflector'].sum()}")
 
     return [P3, zip_codes]
 
@@ -252,8 +275,4 @@ def project_data(data, P3, zip_codes):
             P3_data[f'{role}_env_c'] /= len(roles[role])
 
     project_data.update(P3_data)
-    print(f"Total employees loaded: {len(P3)}")
-    print(f"Cons null count: {P3['Cons'].isna().sum()}")
-    print(f"Cons zero count: {(P3['Cons'] == 0).sum()}")
-    print(P3[['Name', 'Cons']].head(10))
     return project_data

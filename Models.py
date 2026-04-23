@@ -1,109 +1,136 @@
-def all_data_model(row):
-    return 1.5299628 + \
-            -.0009855*row['corp_dist']*row['PEx_env_d'] + \
-            .0117729*row['PM_pri_p']*row['PM_env_c'] + \
-            -0.0201809*(row['PC_env_e']**2)
+def cim_model(person):
+    """
+    CIM (Change in Margin) prediction using Alexa's decision tree.
+    Input: person dict with keys: days, industry, contract, is_pragmatist, proactivity
+    Output: predicted CIM value
+    """
+    days = person['days']
+    healthcare = 1 if person['industry'] == 'Healthcare' else 0
+    industrial = 1 if person['industry'] == 'Industrial' else 0
+    institutional = 1 if person['industry'] == 'Institutional' else 0
+    contract_ls = 1 if person['contract'] == 'LS' else 0
+    contract_gmp = 1 if person['contract'] == 'GMP' else 0
+    is_pragmatist = person['is_pragmatist']
 
-def industry_model(row):
-    industry = row['industry']
-    if industry == "Industrial":
-        return -.2259 + 1.3365 * row['sum_emp_std']
-    
-    elif industry == "Commercial":
-        return -.2259 + 1.3365 * row['sum_emp_std']
-    
-    elif industry == "Healthcare":
-        return 1.443 + -0.06901*row['sum_emp_std']*row['team_env_d'] + \
-                -.1252*row['sum_emp_std']*row['Sup_env_d'] + \
-                .0006951*row['team_dist']*row['PE_pri_p'] + \
-                -.08912*row['team_pri_e']*row['energy_deficit'] + \
-                -.004186*row['team_pri_c']*row['PE_cons'] + \
-                .0288*row['PM_pri_p']*row['PC_pri_e'] + \
-                -.01073*row['PC_pri_d']*row['PEx_env_p'] + \
-                -.0000000009594*(row['corp_dist']**3)
-    
-    elif industry == "Institutional":
-        return -3.30544 + .05231*row['PM_pri_p']*row['PM_env_c']
-        
-    elif industry == "Power":
-        return -1.3945 + -.3135*row['sum_emp_std']
-        
-def revenue_model(row):
-    revenue = row['revenue']
-    if revenue < 3000000:
-        return 2.847 + -.9053*row['sum_emp_std']
-        
-    elif (revenue > 3000000) & (revenue < 10000000):
-        return -4.054 + \
-                -.0003381*row['corp_dist']*row['team_env_p'] +\
-                -.0002166*row['corp_dist']*row['PEx_env_d'] +\
-                .0007864*row['corp_dist']*row['PEx_env_p'] +\
-                -.0009598*row['team_dist']*row['team_pri_d'] +\
-                -.03612*row['team_pri_e']*row['PC_env_e'] +\
-                .02957*row['PM_pri_p']*row['PM_env_c'] +\
-                -.01029*row['PM_env_e']*row['PE_pri_d'] +\
-                -.006630*row['PM_env_e']*row['PC_env_e'] +\
-                .009439*row['PM_env_p']*row['Sup_pri_d'] +\
-                -.008287*row['PE_env_p']*row['PC_pri_e'] +\
-                -.02423*row['PC_pri_e']*row['PC_env_e'] +\
-                .02056*row['PC_env_d']*row['Sup_pri_p'] +\
-                0.01866*row['PC_env_e']*row['Sup_pri_d'] +\
-                -.009108*row['PC_env_p']*row['Sup_pri_p'] +\
-                -.007453*row['Sup_cons']*row['Sup_env_e'] +\
-                .02981*row['Sup_cons']*row['monitoring'] +\
-                .03481*row['Sup_env_e']*row['monitoring'] +\
-                .007397*(row['PE_pri_p']**2) +\
-                .005016*(row['PC_env_e']**2) +\
-                .000008593*(row['PM_cons']**3)
-        
-    elif (revenue > 10000000):
-        return 1.055 +\
-                -.1380*row['PM_pri_d'] +\
-                -.2974*row['PEx_pri_d'] +\
-                -.0000694*(row['team_cons']**3)
-    
-def length_model(row):
-    length = int(row['length'])
-    if length < 365:
-        return 1.453 + -.000000001372*(row['corp_dist']**3)
-    elif length >= 365:
-        return 6.12574 +\
-                0.17014*row['PM_cons'] +\
-                .17587*row['PE_pri_e'] +\
-                .16681*row['PC_env_e'] +\
-                -.068*row['PC_env_p'] +\
-                .42522*row['PEx_env_p']
-    
-def contract_model(row):
-    contract = row['contract']
-    if contract == "LS":
-        return -1.3940 + .9463*row['sum_emp_std']
-    elif contract == "TM":
-        return -11.00867 +\
-                .48638*row['team_env_e'] +\
-                -.54357*row['team_env_c'] +\
-                -.03081*row['PM_pri_c'] +\
-                -.28070*row['PM_env_d'] +\
-                .49849*row['PE_cons'] +\
-                .25397*row['PC_pri_p'] +\
-                .26425*row['PC_pri_c'] +\
-                -.25786*row['Sup_cons'] +\
-                -.1624*row['PEx_pri_d'] +\
-                -.07265*row['PEx_pri_e'] +\
-                .10856*row['PEx_pri_c'] +\
-                -14.48496*row['team_decision_style'] +\
-                .95866*row['stress'] +\
-                .11916*row['proactivity'] +\
-                -.93993*row['PM_FLAG'] +\
-                -2.09484*row['Sup_FLAG']
-    
-    elif contract == "GMP":
-        return 1.160271 +\
-                -.0230663*row['Sup_env_d'] +\
-                .006645*(row['PC_env_d']**2)
-        
-    elif contract == "TM-GMP":
-        return .4561284 +\
-                -.0010625*row['team_dist']*row['PM_env_c'] +\
-                -.004444*row['PM_pri_c']*row['PE_cons'] +\
-                .0077118*row['Sup_cons']*row['PEx_env_p']
+    # Node 1: L1 = -0.26E-4*Days - 0.49E-1*Healthcare - 0.4E-1*Industrial - 0.107*Institutional + 0.21E-1*LS
+    L1 = (-0.0000260 * days
+          - 0.049 * healthcare
+          - 0.040 * industrial
+          - 0.107 * institutional
+          + 0.021 * contract_ls)
+
+    if L1 <= -0.1097:
+        # Node 2: Days <= 115.50
+        if days <= 115.50:
+            # Terminal Node 4
+            pred = -11.71 + 0.109 * days
+        else:
+            # Node 5: V1 = GMP
+            if contract_gmp == 1:
+                # Terminal Node 11
+                pred = 0.30 - 0.32 * institutional
+            else:
+                # Node 10: Days <= 900.50
+                if days <= 900.50:
+                    # Terminal Node 20
+                    pred = 0.38 - 0.00110 * days + 0.16 * is_pragmatist
+                else:
+                    # Terminal Node 21
+                    pred = -0.017 + 0.000024 * days
+    else:
+        # Terminal Node 3
+        pred = (0.0804
+                - 0.000064 * days
+                - 0.052 * healthcare
+                - 0.038 * industrial
+                - 0.041 * institutional)
+
+    return pred
+
+
+def fpm_model(person):
+    """
+    FPM (Final Profit Margin) prediction using Alexa's decision tree.
+    Input: person dict with keys: days, primary_e, industry, contract, is_reflector, env_d, proactivity
+    Output: predicted FPM value
+    """
+    days = person['days']
+    primary_e = person['primary_e']
+    healthcare = 1 if person['industry'] == 'Healthcare' else 0
+    institutional = 1 if person['industry'] == 'Institutional' else 0
+    contract_ls = 1 if person['contract'] == 'LS' else 0
+    contract_tm = 1 if person['contract'] == 'TM' else 0
+    contract_ilpd = 1 if person['contract'] == 'ILPD' else 0
+    is_reflector = person['is_reflector']
+    env_d = person['env_d']
+    proactivity = person['proactivity']
+
+    # Node 1: L1 = -0.41E-4*Days - 0.12E-2*PrimaryE - 0.035*Healthcare - 0.12*Institutional + 0.027*LS + 0.026*TM
+    L1 = (-0.000041 * days
+          - 0.0012 * primary_e
+          - 0.035 * healthcare
+          - 0.12 * institutional
+          + 0.027 * contract_ls
+          + 0.026 * contract_tm)
+
+    if L1 <= 0.0105:
+        # Node 2: L2 <= -0.0272
+        L2 = (-0.000029 * days
+              - 0.0014 * primary_e
+              - 0.035 * healthcare
+              - 0.11 * institutional
+              + 0.036 * contract_tm)
+
+        if L2 <= -0.0272:
+            # Node 4: L4 <= -0.0634
+            L4 = (-0.084 * institutional
+                  + 0.041 * contract_ls
+                  + 0.095 * contract_tm)
+
+            if L4 <= -0.0634:
+                # Node 8: Days <= 101
+                if days <= 101:
+                    # Terminal Node 16
+                    pred = -0.69 - 0.0079 * days + 0.0104 * proactivity
+                else:
+                    # Terminal Node 17
+                    pred = 0.096 - 0.000107 * days
+            else:
+                # Node 9: Days <= 146.50
+                if days <= 146.50:
+                    # Terminal Node 18
+                    pred = 0.18 - 0.076 * healthcare
+                else:
+                    # Terminal Node 19
+                    pred = 0.092 - 0.087 * institutional
+        else:
+            # Terminal Node 5
+            pred = (0.16
+                    - 0.0000904 * days
+                    - 0.12 * contract_ilpd
+                    - 0.026 * contract_ls
+                    + 0.022 * is_reflector)
+    else:
+        # Terminal Node 3
+        pred = 0.18 - 0.00013 * days - 0.001003 * env_d
+
+    return pred
+
+
+def get_person_data(name, role, P3, project):
+    """
+    Build a person dict with all variables needed for CIM and FPM models.
+    """
+    row = P3[P3['Name'] == name].iloc[0]
+    return {
+        'name': name,
+        'role': role,
+        'days': project['length'],
+        'industry': project['industry'],
+        'contract': project['contract'],
+        'primary_e': row['Pri_E'],
+        'env_d': row['Env_D'],
+        'proactivity': row['Proactivity'],
+        'is_pragmatist': int(row['Is_Pragmatist']),
+        'is_reflector': int(row['Is_Reflector']),
+    }

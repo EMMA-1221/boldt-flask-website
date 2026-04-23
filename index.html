@@ -5,75 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BOLDT Team Selector</title>
-    <!-- Bulma CDN -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <!-- Font Awesome CDN -->
-    <script
-      src="https://kit.fontawesome.com/8a80b728dc.js"
-      crossorigin="anonymous"
-    ></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+    <script src="https://kit.fontawesome.com/8a80b728dc.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <!-- NavBar -->
-    <nav
-      class="navbar has-background-danger-dark"
-      role="navigation"
-      aria-label="main navigation"
-    >
+    <nav class="navbar has-background-danger-dark" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <!-- <a class="navbar-item" href="https://boldt.com">
-          <img src="Boldt Logo.png" width="100px" />
-        </a> -->
-
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbarBasicExample"
-        >
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
-
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
           <a id="home_button" class="navbar-item has-text-white"> Home </a>
-
-          <a id="guidance_button" class="navbar-item has-text-white">
-            Team Building Guidance
-          </a>
-
-          <a id="estimator_button" class="navbar-item has-text-white">
-            Team Performance Estimator</a
-          >
+          <a id="guidance_button" class="navbar-item has-text-white"> Team Building Guidance </a>
+          <a id="estimator_button" class="navbar-item has-text-white"> Team Performance Estimator</a>
         </div>
       </div>
     </nav>
+
     <div id="home_div">
       <div class="p-6">
         <h1 class="is-size-1 mb-6">Welcome to the Team Development Tool!</h1>
         <div class="content">
-          The team evaluator was developed in order to form teams that had the
-          highest probablity of project success. <br /><br />
+          The team evaluator was developed in order to form teams that had the highest probablity of project success. <br /><br />
           There are two methods for team development strategies:
           <ul class="list">
             <li class="list-item">Team Building Guidance</li>
-            <li ckass="list-item">Team Performance Estimator</li>
+            <li class="list-item">Team Performance Estimator</li>
           </ul>
         </div>
       </div>
     </div>
+
     <div id="guidance_div" class="p-6 is-hidden">
-      <h1 class="is-size-1">Team Buidling Guidance</h1>
+      <h1 class="is-size-1">Team Building Guidance</h1>
       <p class="my-4">
-        This section contains guidance on how to train and develop employees per
-        the results found in the study. <br /><br />
+        This section contains guidance on how to train and develop employees per the results found in the study. <br /><br />
         Use the dropdown below to select the filter appropriate to your project.
       </p>
       <div class="has-background-danger-dark p-2">
@@ -92,25 +63,21 @@
             <option value="3M-10M">Revenue: 3M-10M</option>
             <option value="10M+">Revenue: 10M+</option>
             <option value="null">-------------------------</option>
-            <option value="less_yr">Length: <1yr</option>
-            <option value="great_yr">Length: >1yr</option>
+            <option value="less_yr">Length: &lt;1yr</option>
+            <option value="great_yr">Length: &gt;1yr</option>
             <option value="null">-------------------------</option>
             <option value="LS">Contract Type: LS</option>
             <option value="T&M">Contract Type: T&M</option>
             <option value="GMP">Contract Type: GMP</option>
             <option value="T&M-GMP">Contract Type: T&M-GMP</option>
+            <option value="ILPD">Contract Type: ILPD</option>
           </select>
         </div>
       </div>
       <div id="trait_guidance">
         <p class="my-4">
-          Use the following to connect suggested Drake P3 scores with actionable
-          items. The following information is the product of Janine Smith of
-          JSPerformance Strategies LLC <br /><br />
-          For example, if the results suggest Project Executives with Lower
-          Dominance scores perform better, consider the High Dominance and Low
-          Dominance sections - how can you foster the traits of low dominace and
-          curb the traits of high dominance?
+          Use the following to connect suggested Drake P3 scores with actionable items. The following information is the product of Janine Smith of JSPerformance Strategies LLC <br /><br />
+          For example, if the results suggest Project Executives with Lower Dominance scores perform better, consider the High Dominance and Low Dominance sections - how can you foster the traits of low dominace and curb the traits of high dominance?
         </p>
         <table class="table is-bordered is-striped" style="margin: 0 auto">
           <thead>
@@ -169,7 +136,7 @@
                 Persuasive Outgoing Trait
                 <ul>
                   <li>Focus is on future and opportunities</li>
-                  <li>What if’s (brainstorming)</li>
+                  <li>What if's (brainstorming)</li>
                   <li>Innovation</li>
                   <li>Flexible, spontaneous</li>
                   <li>Problem solving</li>
@@ -191,7 +158,7 @@
                 <ul>
                   <li>Internal focus</li>
                   <li>Analytical thinker</li>
-                  <li>Prefers 1-on–1 interactions</li>
+                  <li>Prefers 1-on-1 interactions</li>
                   <li>Skeptical of new ideas</li>
                   <li>Contemplative, quiet</li>
                   <li>Sincere, unpretentious</li>
@@ -265,7 +232,7 @@
                 <ul>
                   <li>Focus is process and systems</li>
                   <li>Order, structure, detailed</li>
-                  <li>“By the book”</li>
+                  <li>"By the book"</li>
                   <li>Sees things as black or white</li>
                   <li>Clearly defined roles</li>
                   <li>Fair and equal treatment</li>
@@ -280,7 +247,7 @@
                   <li>Analysis paralysis, misses the big picture</li>
                   <li>Focuses on 1% wrong, not 99% right</li>
                   <li>Micromanager (until trust is established)</li>
-                  <li>“Know it all”</li>
+                  <li>"Know it all"</li>
                   <li>Resists change, overly cautious</li>
                   <li>Procrastinates, delays decisions (has to be right)</li>
                   <li>Sensitive to criticism</li>
@@ -289,9 +256,9 @@
               <td>
                 Independent Trait
                 <ul>
-                  <li>“Big Picture”</li>
+                  <li>"Big Picture"</li>
                   <li>Candid communicator</li>
-                  <li>Restists controls and structure</li>
+                  <li>Resists controls and structure</li>
                   <li>Flexible thinker</li>
                   <li>Open to new ideas</li>
                   <li>Creative problem solver</li>
@@ -311,6 +278,7 @@
         </table>
       </div>
     </div>
+
     <div id="estimator_div" class="p-6 is-hidden">
       <h1 class="is-size-1">Team Performance Estimator</h1>
       <div class="field py-3">
@@ -321,11 +289,8 @@
       </div>
       <div id="estimator_tool">
         <p class="my-4">
-          Use the tool below to estimate the probability of success with the
-          chosen team. <br /><br />
-          Select the project parameters, identify the team members, and hit
-          submit. If there are any errors they will show up in the error box at
-          the bottom.
+          Use the tool below to estimate the probability of success with the chosen team. <br /><br />
+          Select the project parameters, identify the team members, and hit submit. If there are any errors they will show up in the error box at the bottom.
         </p>
         <div class="columns">
           <div class="column">
@@ -342,15 +307,11 @@
                   <option value="Institutional">Institutional</option>
                 </select>
               </div>
-              <label class="label mt-2">Estimated Project Revenue </label>
-              <p class="is-text-size-7 mb-2">
-                Separated by commas, no decimals. (EX: 12,000,000)
-              </p>
+              <label class="label mt-2">Estimated Project Revenue</label>
+              <p class="is-text-size-7 mb-2">Separated by commas, no decimals. (EX: 12,000,000)</p>
               <input id="Revenue" type="text" class="input" />
               <label class="label mt-2">Estimated Project Length</label>
-              <p class="is-text-size-7 mb-2">
-                In days, separated by commas (EX: 247 or 1,813)
-              </p>
+              <p class="is-text-size-7 mb-2">In days, separated by commas (EX: 247 or 1,813)</p>
               <input id="Length" type="text" class="input" />
               <label class="label mt-2">Contract Type</label>
               <div class="select">
@@ -358,8 +319,9 @@
                   <option value="empty"></option>
                   <option value="LS">Lump Sum</option>
                   <option value="TM">Time and Material</option>
-                  <option value="GMP">Guarenteed Max Price</option>
+                  <option value="GMP">Guaranteed Max Price</option>
                   <option value="TM-GMP">Time and Material with GMP</option>
+                  <option value="ILPD">Integrated Lean Project Delivery</option>
                 </select>
               </div>
               <label class="label mt-2">Project zip code</label>
@@ -376,97 +338,34 @@
               <i class="fa-solid fa-minus"></i>
             </button>
             <p class="is-size-6 my-3">
-              Type team members name and select the appropriate name from the
-              dropdown. If the name does not appear in the drop down, try a
-              nickname or alternative spelling, or the member may not be in the
-              database and may need to be added.
+              Type team members name and select the appropriate name from the dropdown. If the name does not appear in the drop down, try a nickname or alternative spelling, or the member may not be in the database and may need to be added.
             </p>
             <div class="columns">
               <div class="column">
                 <div class="field p-3">
                   <div class="control">
-                    <label class="label" id="team_mem_1_lab"
-                      >Team Member 1</label
-                    >
+                    <label class="label" id="team_mem_1_lab">Team Member 1</label>
                     <input type="text" list="members" id="team_mem_1" />
-                    <label class="label" id="team_mem_2_lab"
-                      >Team Member 2</label
-                    >
+                    <label class="label" id="team_mem_2_lab">Team Member 2</label>
                     <input type="text" list="members" id="team_mem_2" />
-                    <label class="label is-hidden" id="team_mem_3_lab"
-                      >Team Member 3</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_3"
-                    />
-                    <label class="label is-hidden" id="team_mem_4_lab"
-                      >Team Member 4</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_4"
-                    />
-                    <label class="label is-hidden" id="team_mem_5_lab"
-                      >Team Member 5</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_5"
-                    />
-                    <label class="label is-hidden" id="team_mem_6_lab"
-                      >Team Member 6</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_6"
-                    />
-                    <label class="label is-hidden" id="team_mem_7_lab"
-                      >Team Member 7</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_7"
-                    />
-                    <label class="label is-hidden" id="team_mem_8_lab"
-                      >Team Member 8</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_8"
-                    />
-                    <label class="label is-hidden" id="team_mem_9_lab"
-                      >Team Member 9</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_9"
-                    />
-                    <label class="label is-hidden" id="team_mem_10_lab"
-                      >Team Member 10</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="members"
-                      id="team_mem_10"
-                    />
+                    <label class="label is-hidden" id="team_mem_3_lab">Team Member 3</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_3" />
+                    <label class="label is-hidden" id="team_mem_4_lab">Team Member 4</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_4" />
+                    <label class="label is-hidden" id="team_mem_5_lab">Team Member 5</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_5" />
+                    <label class="label is-hidden" id="team_mem_6_lab">Team Member 6</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_6" />
+                    <label class="label is-hidden" id="team_mem_7_lab">Team Member 7</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_7" />
+                    <label class="label is-hidden" id="team_mem_8_lab">Team Member 8</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_8" />
+                    <label class="label is-hidden" id="team_mem_9_lab">Team Member 9</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_9" />
+                    <label class="label is-hidden" id="team_mem_10_lab">Team Member 10</label>
+                    <input class="is-hidden" type="text" list="members" id="team_mem_10" />
                   </div>
-                  <datalist id="members"> </datalist>
+                  <datalist id="members"></datalist>
                 </div>
               </div>
               <div class="column">
@@ -476,78 +375,22 @@
                     <input type="text" list="roles" id="team_mem_1_role" />
                     <label class="label" id="team_mem_2_role_lab">Role</label>
                     <input type="text" list="roles" id="team_mem_2_role" />
-                    <label class="label is-hidden" id="team_mem_3_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_3_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_4_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_4_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_5_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_5_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_6_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_6_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_7_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_7_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_8_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_8_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_9_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_9_role"
-                    />
-                    <label class="label is-hidden" id="team_mem_10_role_lab"
-                      >Role</label
-                    >
-                    <input
-                      class="is-hidden"
-                      type="text"
-                      list="roles"
-                      id="team_mem_10_role"
-                    />
+                    <label class="label is-hidden" id="team_mem_3_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_3_role" />
+                    <label class="label is-hidden" id="team_mem_4_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_4_role" />
+                    <label class="label is-hidden" id="team_mem_5_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_5_role" />
+                    <label class="label is-hidden" id="team_mem_6_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_6_role" />
+                    <label class="label is-hidden" id="team_mem_7_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_7_role" />
+                    <label class="label is-hidden" id="team_mem_8_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_8_role" />
+                    <label class="label is-hidden" id="team_mem_9_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_9_role" />
+                    <label class="label is-hidden" id="team_mem_10_role_lab">Role</label>
+                    <input class="is-hidden" type="text" list="roles" id="team_mem_10_role" />
                   </div>
                 </div>
                 <datalist id="roles">
@@ -562,43 +405,28 @@
           </div>
           <div class="column">
             <h3 class="is-size-3 mb-3">Success Estimate</h3>
-            <table class="table is-striped is-bordered">
+            <table class="table is-striped is-bordered" id="results_table">
               <thead>
                 <tr>
-                  <th>Critera</th>
-                  <th>Estimated CIM</th>
+                  <th>Team Member</th>
+                  <th>Predicted CIM</th>
+                  <th>Predicted FPM</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>Overall</td>
-                  <td id="overall_val"></td>
-                </tr>
-                <tr>
-                  <td>Industry</td>
-                  <td id="industry_val"></td>
-                </tr>
-                <tr>
-                  <td>Revenue</td>
-                  <td id="revenue_val"></td>
-                </tr>
-                <tr>
-                  <td>Length</td>
-                  <td id="length_val"></td>
-                </tr>
-                <tr>
-                  <td>Contract Type</td>
-                  <td id="contract_val"></td>
-                </tr>
-                <tr>
-                  <td>Average</td>
-                  <td id="average_val"></td>
-                </tr>
-                <tr>
-                  <td>Result</td>
-                  <td id="result_val"></td>
-                </tr>
+              <tbody id="results_body">
+                <!-- rows populated dynamically -->
               </tbody>
+              <tfoot>
+                <tr>
+                  <td><strong>Average</strong></td>
+                  <td id="average_cim_val"></td>
+                  <td id="average_fpm_val"></td>
+                </tr>
+                <tr>
+                  <td><strong>Result</strong></td>
+                  <td colspan="2" id="result_val"></td>
+                </tr>
+              </tfoot>
             </table>
           </div>
         </div>
@@ -606,9 +434,7 @@
           <div class="field">
             <div class="control">
               <button id="submit_form" class="button is-success">Submit</button>
-              <button id="clear_form" class="button is-danger">
-                Clear Form
-              </button>
+              <button id="clear_form" class="button is-danger">Clear Form</button>
             </div>
           </div>
         </div>
@@ -617,38 +443,29 @@
           <p id="errors_list"></p>
         </div>
       </div>
+
       <div id="tool_hints" class="is-hidden">
         <h3 class="is-size-3">Understanding the Success Estimate</h3>
         <p class="is-size-6 py-3">
-          The project team is only a component of what brings project success.
-          Because of this, the estimates in the table are moderately accurate.
+          The project team is only a component of what brings project success. Because of this, the estimates in the table are moderately accurate.
           <br /><br />
-          Any prediction with a CIM greater than or less than 10% is likely an
-          outlier, which will occur in about 10% of the predictions.
+          Any prediction with a CIM greater than or less than 10% is likely an outlier, which will occur in about 10% of the predictions.
           <br /><br />
-          Because of this, it is suggested to only look at the 'Result' of the
-          table, and to try and change team members until you get an 'in 3rd
-          quartile of teams' or 'in top 1/4 of teams' result. <br /><br />
-          From testing, the tool correctly guesses an above average team 64% of
-          the time. 18% of the time it predicts a well performing team to be a
-          below average team, and 18% of the time it predicts a below average
-          team to be an above average team. <br /><br />
-          In short, by aiming for a higher performing team, the hope is the
-          average team success will rise.
+          Because of this, it is suggested to only look at the 'Result' of the table, and to try and change team members until you get an 'in 3rd quartile of teams' or 'in top 1/4 of teams' result.
+          <br /><br />
+          From testing, the tool correctly guesses an above average team 64% of the time. 18% of the time it predicts a well performing team to be a below average team, and 18% of the time it predicts a below average team to be an above average team.
+          <br /><br />
+          In short, by aiming for a higher performing team, the hope is the average team success will rise.
         </p>
         <h3 class="is-size-3">Team Building Hints</h3>
         <p class="is-size-6 py-3">
-          The tool is based on linear models that take an input from all the
-          entered information and Drake P3 data and attempts to predict the
-          project success. <br /><br />
-          If you're having trouble 'moving the needle' and finding a good team,
-          checkout the suggestions below. Unfortunately, some categories didn't
-          seem to have many specific attributes that effected success and it may
-          be hard to find a better performing team.
+          The tool is based on linear models that take an input from all the entered information and Drake P3 data and attempts to predict the project success.
+          <br /><br />
+          If you're having trouble 'moving the needle' and finding a good team, checkout the suggestions below. Unfortunately, some categories didn't seem to have many specific attributes that effected success and it may be hard to find a better performing team.
         </p>
         <div class="has-background-danger-dark p-2">
           <div class="select">
-            <select name="performance_guidance_filter" id="guidance_filter">
+            <select name="performance_guidance_filter" id="performance_guidance_filter">
               <option value="Company_Wide">Company Wide</option>
               <option value="null">-------------------------</option>
               <option value="Commercial">Industry: Commercial</option>
@@ -661,101 +478,44 @@
               <option value="3M-10M">Revenue: 3M-10M</option>
               <option value="10M+">Revenue: 10M+</option>
               <option value="null">-------------------------</option>
-              <option value="less_yr">Length: <1yr</option>
-              <option value="great_yr">Length: >1yr</option>
+              <option value="less_yr">Length: &lt;1yr</option>
+              <option value="great_yr">Length: &gt;1yr</option>
               <option value="null">-------------------------</option>
               <option value="LS">Contract Type: LS</option>
               <option value="T&M">Contract Type: T&M</option>
               <option value="GMP">Contract Type: GMP</option>
               <option value="T&M-GMP">Contract Type: T&M-GMP</option>
+              <option value="ILPD">Contract Type: ILPD</option>
             </select>
           </div>
         </div>
-        <div id="lin_mod_all" class="box">
-          The full model relies on elements from the Project Manager and Project
-          Coordinator - try changing the staffing to this role.
-        </div>
-        <div id="lin_mod_commercial" class="box">
-          The commerical model relies only on the number of employees per
-          million dollars. Can increase number of employees staffed to project.
-        </div>
-        <div id="lin_mod_industrial" class="box">
-          The industrial model relies only on the number of employees per
-          million dollars. Can increase number of employees staffed to project.
-        </div>
-        <div id="lin_mod_healthcare" class="box">
-          The healthcare model relies on a number of variables and should change
-          easily by adjusting the proposed team.
-        </div>
-        <div id="lin_mod_power" class="box">
-          The power model relies only on the number of employees per million
-          dollars. Can increase number of employees staffed to project.
-        </div>
-        <div id="lin_mod_institutional" class="box">
-          The institutional model relies on elements from the Project Manager -
-          try changing the staffing to this role.
-        </div>
-        <div id="lin_mod_1M-3M" class="box">
-          The $1M-3M model relies on elements from the Project Manager - try
-          changing the staffing to this role.
-        </div>
-        <div id="lin_mod_3M-10M" class="box">
-          The $3M-10M model relies on a number of variables and should change
-          easily by adjusting the proposed team.
-        </div>
-        <div id="lin_mod_10M" class="box">
-          The $10M+ model relies on eleements from the Project Manager, Project
-          Executive, and the team as a whole. Try decreasing the project manager
-          and project executive's dominance scores.
-        </div>
-        <div id="lin_mod_lessyr" class="box">
-          The less than one year model only relies on the distance from the
-          corporate office and cannot be changed.
-        </div>
-        <div id="lin_mod_greatyr" class="box">
-          The greater than one year model relies on elements from the Project
-          Manager, PRoject Engineer, Project Coordinator, and Project Executive.
-          Try decreasing the project managers conscientiousness, increasing the
-          project engineers primary extroversion, increasing the project
-          coordinators environmental extroversion, decreasing the project
-          coordinators environmental patience, and increasing the project
-          executives environmental patience.
-        </div>
-        <div id="lin_mod_LS" class="box">
-          The lump sum model relies only on the number of employees per million
-          dollars. You can try increasing the number of employees staffed to
-          project.
-        </div>
-        <div id="lin_mod_TM" class="box">
-          The Time and Material model relies on a number of variables and should
-          change easily by adjusting the proposed team.
-        </div>
-        <div id="lin_mod_GMP" class="box">
-          The Guarenteed Max Price model relies on the Superintendent and
-          Project Coordinator. Try adjusting these roles; specifically
-          decreasing superintendent environental dominance.
-        </div>
-        <div id="lin_mod_TM-GMP" class="box">
-          The Time and Material with a GMP model relies on the Project Manager,
-          Project Engineer, Superintendent, Project Executive, and the overall
-          distance of the team from their homes. Try adjusting these roles to
-          find a better team.
-        </div>
+        <div id="lin_mod_all" class="box">The full model relies on elements from the Project Manager and Project Coordinator - try changing the staffing to this role.</div>
+        <div id="lin_mod_commercial" class="box">The commercial model relies only on the number of employees per million dollars. Can increase number of employees staffed to project.</div>
+        <div id="lin_mod_industrial" class="box">The industrial model relies only on the number of employees per million dollars. Can increase number of employees staffed to project.</div>
+        <div id="lin_mod_healthcare" class="box">The healthcare model relies on a number of variables and should change easily by adjusting the proposed team.</div>
+        <div id="lin_mod_power" class="box">The power model relies only on the number of employees per million dollars. Can increase number of employees staffed to project.</div>
+        <div id="lin_mod_institutional" class="box">The institutional model relies on elements from the Project Manager - try changing the staffing to this role.</div>
+        <div id="lin_mod_1M-3M" class="box">The $1M-3M model relies on elements from the Project Manager - try changing the staffing to this role.</div>
+        <div id="lin_mod_3M-10M" class="box">The $3M-10M model relies on a number of variables and should change easily by adjusting the proposed team.</div>
+        <div id="lin_mod_10M" class="box">The $10M+ model relies on elements from the Project Manager, Project Executive, and the team as a whole. Try decreasing the project manager and project executive's dominance scores.</div>
+        <div id="lin_mod_lessyr" class="box">The less than one year model only relies on the distance from the corporate office and cannot be changed.</div>
+        <div id="lin_mod_greatyr" class="box">The greater than one year model relies on elements from the Project Manager, Project Engineer, Project Coordinator, and Project Executive. Try decreasing the project managers conscientiousness, increasing the project engineers primary extroversion, increasing the project coordinators environmental extroversion, decreasing the project coordinators environmental patience, and increasing the project executives environmental patience.</div>
+        <div id="lin_mod_LS" class="box">The lump sum model relies only on the number of employees per million dollars. You can try increasing the number of employees staffed to project.</div>
+        <div id="lin_mod_TM" class="box">The Time and Material model relies on a number of variables and should change easily by adjusting the proposed team.</div>
+        <div id="lin_mod_GMP" class="box">The Guaranteed Max Price model relies on the Superintendent and Project Coordinator. Try adjusting these roles; specifically decreasing superintendent environmental dominance.</div>
+        <div id="lin_mod_TM-GMP" class="box">The Time and Material with a GMP model relies on the Project Manager, Project Engineer, Superintendent, Project Executive, and the overall distance of the team from their homes. Try adjusting these roles to find a better team.</div>
+        <div id="lin_mod_ILPD" class="box">The Integrated Lean Project Delivery model guidance will be updated soon.</div>
       </div>
     </div>
-    <footer
-      class="footer px-0 pb-6 has-text-centered has-background-danger-dark"
-    >
+
+    <footer class="footer px-0 pb-6 has-text-centered has-background-danger-dark">
       <p class="has-text-white p-3">
-        Developed by Calob Limberg, in partial fulfillment of the requirements
-        for the degree of Master of Science at the University of Wisconsin -
-        Madison.
+        Developed by Calob Limberg and Alexa Rademacher, in partial fulfillment of the requirements for the degree of Master of Science at the University of Wisconsin - Madison.
       </p>
     </footer>
     <script>
       let team_names = {{ team_names | tojson }};
     </script>
-    <script src="{{ url_for('static', filename='app.js') }}"></script> 
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
   </body>
 </html>
-

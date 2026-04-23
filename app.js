@@ -28,7 +28,7 @@ r_e("estimator_button").addEventListener("click", () => {
   r_e("estimator_div").classList.remove("is-hidden");
 });
 
-// guidance dropdown button
+// guidance dropdown
 r_e("guidance_filter").addEventListener("change", () => {
   // NEEDS TO BE CODED
 });
@@ -55,26 +55,19 @@ r_e("clear_form").addEventListener("click", () => {
   r_e("Revenue").value = "";
   r_e("Length").value = "";
   r_e("Contract").value = "empty";
+  r_e("Zip").value = "";
   for (let x = 1; x <= 10; x++) {
     r_e(`team_mem_${x}`).value = "";
     r_e(`team_mem_${x}_role`).value = "";
   }
-  let tbl_val = [
-    "overall_val",
-    "industry_val",
-    "revenue_val",
-    "length_val",
-    "contract_val",
-    "average_val",
-    "result_val",
-  ];
-  tbl_val.forEach((cell) => {
-    r_e(`${cell}`).innerHTML = "";
-  });
+  r_e("results_body").innerHTML = "";
+  r_e("average_cim_val").innerHTML = "";
+  r_e("average_fpm_val").innerHTML = "";
+  r_e("result_val").innerHTML = "";
   r_e("errors_list").innerHTML = "";
 });
 
-// team_names is injected via <script> in index.html from Flask
+// team_names injected from Flask
 team_names.forEach((member) => {
   r_e("members").innerHTML += `<option value="${member}"></option>`;
 });
@@ -102,9 +95,10 @@ r_e("add_team_mem").addEventListener("click", () => {
   }
 });
 
-// post information
+// submit form
 r_e("submit_form").addEventListener("click", () => {
   r_e("errors_list").innerHTML = "";
+
   if (r_e("Industry").value == "empty") {
     r_e("errors_list").innerHTML += "Missing industry, please select one. <br>";
   }
@@ -134,7 +128,7 @@ r_e("submit_form").addEventListener("click", () => {
   }
   for (let x = 1; x <= num_members; x++) {
     if (!team_names.includes(r_e(`team_mem_${x}`).value) && r_e(`team_mem_${x}`).value != "") {
-      r_e("errors_list").innerHTML += `Team Member ${x} name not found. Check name again or contract administrator to get them added to the database. <br>`;
+      r_e("errors_list").innerHTML += `Team Member ${x} name not found. Check name again or contact administrator to get them added to the database. <br>`;
     } else if (r_e(`team_mem_${x}_role`).value == "" && r_e(`team_mem_${x}`).value != "") {
       r_e("errors_list").innerHTML += `Missing Team Member ${x}'s role. Enter role above. <br>`;
     } else if (!roles.includes(r_e(`team_mem_${x}_role`).value) && r_e(`team_mem_${x}_role`).value != "") {
@@ -175,19 +169,32 @@ r_e("submit_form").addEventListener("click", () => {
       name_10: r_e("team_mem_10").value,
       role_10: r_e("team_mem_10_role").value,
     });
+
     xhr.onload = function () {
       answers = JSON.parse(xhr.response);
-      if (Object.keys(answers).length == 1) {
+
+      if (answers.error) {
         r_e("errors_list").innerHTML += answers.error;
+        return;
       }
-      r_e("overall_val").innerHTML = answers.Overall;
-      r_e("industry_val").innerHTML = answers.Industry;
-      r_e("revenue_val").innerHTML = answers.Revenue;
-      r_e("length_val").innerHTML = answers.Length;
-      r_e("contract_val").innerHTML = answers.Contract;
-      r_e("average_val").innerHTML = answers.Average;
-      r_e("result_val").innerHTML = answers.Result;
+
+      // populate table - one row per team member
+      r_e("results_body").innerHTML = "";
+      answers.members.forEach((member) => {
+        let row = `<tr>
+          <td>${member.name} (${member.role})</td>
+          <td>${member.cim}</td>
+          <td>${member.fpm}</td>
+        </tr>`;
+        r_e("results_body").innerHTML += row;
+      });
+
+      // average and result
+      r_e("average_cim_val").innerHTML = answers.avg_cim;
+      r_e("average_fpm_val").innerHTML = answers.avg_fpm;
+      r_e("result_val").innerHTML = answers.result;
     };
+
     xhr.send(body);
   }
 });

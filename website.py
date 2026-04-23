@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import json
 from dataset import data_import, project_data
-from Models import all_data_model, industry_model, revenue_model, length_model, contract_model
+from Models import cim_model, fpm_model, get_person_data
 from models import db, User
 
 app = Flask(__name__)
@@ -83,28 +83,48 @@ def tool():
         row = project_data(data, P3, zip_codes)
         if type(row) == type('string'):
             return json.dumps({'error': row})
-        all_data = round(all_data_model(row), 2)
-        industry = round(industry_model(row), 2)
-        revenue = round(revenue_model(row), 2)
-        length = round(length_model(row), 2)
-        contract = round(contract_model(row), 2)
-        avg = round((all_data + industry + revenue + length + contract) / 5, 2)
-        if avg < .604177:
+
+        project = {
+            'industry': data['industry'],
+            'contract': data['contract'],
+            'length': int(data['length'].replace(',', '')),
+        }
+
+        # calculate CIM and FPM per person
+        members = []
+        for i in range(1, 11):
+            name = data.get(f'name_{i}', '')
+            role = data.get(f'role_{i}', '')
+            if name != '':
+                person = get_person_data(name, role, P3, project)
+                cim = round(cim_model(person), 4)
+                fpm = round(fpm_model(person), 4)
+                members.append({
+                    'name': name,
+                    'role': role,
+                    'cim': str(cim),
+                    'fpm': str(fpm)
+                })
+
+        # average across team
+        avg_cim = round(sum(float(m['cim']) for m in members) / len(members), 4)
+        avg_fpm = round(sum(float(m['fpm']) for m in members) / len(members), 4)
+
+        # result based on Alexa's CIM quartile thresholds
+        if avg_cim < -0.00939:
             result = 'in bottom 1/4 of teams'
-        elif avg < 1.205:
+        elif avg_cim < 0.01803:
             result = 'in 2nd quartile of teams'
-        elif avg < 2.39:
+        elif avg_cim < 0.07517:
             result = 'in 3rd quartile of teams'
         else:
             result = 'in top 1/4 of teams'
+
         return json.dumps({
-            'Overall': str(all_data),
-            'Industry': str(industry),
-            'Revenue': str(revenue),
-            'Length': str(length),
-            'Contract': str(contract),
-            'Average': str(avg),
-            'Result': result
+            'members': members,
+            'avg_cim': str(avg_cim),
+            'avg_fpm': str(avg_fpm),
+            'result': result
         })
 
 @app.route("/admin")

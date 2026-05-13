@@ -144,6 +144,57 @@ def tool():
         all_cim = round((ind_cim + con_cim + pm_cim + sup_cim + team_cim) / 5, 4)
         all_fpm = round((ind_fpm + con_fpm + pm_fpm + sup_fpm + team_fpm) / 5, 4)
 
+        # --- Summary Section ---
+        def get_person_summary(name):
+            row = P3[P3["Name"] == name].iloc[0]
+            def safe(val):
+                return round(float(val), 1) if str(val) != "nan" else "N/A"
+            return {
+                "name": name.title(),
+                "Pri_D": safe(row["Pri_D"]),
+                "Pri_E": safe(row["Pri_E"]),
+                "Pri_P": safe(row["Pri_P"]),
+                "Pri_C": safe(row["Pri_C"]),
+                "Cons": safe(row["Cons"]),
+                "Env_D": safe(row["Env_D"]),
+                "Env_E": safe(row["Env_E"]),
+                "Env_P": safe(row["Env_P"]),
+                "Env_C": safe(row["Env_C"]),
+                "High_Trait": str(row["High_Trait"]),
+                "Low_Trait": str(row["Low_Trait"]),
+                "Decision_Style": str(row["Decision_Style"]),
+                "Leadership_Style": str(row["Leadership_Style"]),
+                "Learning_Style": str(row["Learning_Style"]) if str(row["Learning_Style"]) != "nan" else "N/A",
+                "Activist": safe(row["Activist"]),
+                "Reflector": safe(row["Reflector"]),
+                "Theorist": safe(row["Theorist"]),
+                "Pragmatist": safe(row["Pragmatist"]),
+                "Stress_Level": safe(row["Stress_Level"]),
+                "Energy_Level": safe(row["Energy_Level"]),
+                "Proactivity_Score": safe(row["Proactivity_Score"]),
+                "Self_Monitoring_Score": safe(row["Self_Monitoring_Score"]),
+            }
+
+        pm_summary = get_person_summary(pm_names[0]) if pm_names else None
+        sup_summary = get_person_summary(sup_names[0]) if sup_names else None
+
+        numeric_cols = ["Pri_D", "Pri_E", "Pri_P", "Pri_C", "Cons",
+                        "Env_D", "Env_E", "Env_P", "Env_C",
+                        "Activist", "Reflector", "Theorist", "Pragmatist",
+                        "Stress_Level", "Energy_Level", "Proactivity_Score", "Self_Monitoring_Score"]
+        team_summary = {}
+        for col in numeric_cols:
+            vals = []
+            for m in all_members:
+                v = P3[P3["Name"] == m["name"]][col].iloc[0]
+                if str(v) != "nan":
+                    vals.append(float(v))
+            team_summary[col] = round(sum(vals) / len(vals), 1) if vals else "N/A"
+
+        styles = [str(P3[P3["Name"] == m["name"]]["Learning_Style"].iloc[0]) for m in all_members]
+        styles = [s for s in styles if s != "nan"]
+        team_summary["Learning_Style"] = max(set(styles), key=styles.count) if styles else "N/A"
+
         # --- Results based on Alexa's quartile thresholds ---
         def cim_result(val):
             if val < -0.00939:
@@ -180,6 +231,9 @@ def tool():
             'all_fpm':       str(all_fpm),
             'cim_result':    cim_result(all_cim),
             'fpm_result':    fpm_result(all_fpm),
+            'pm_summary':    pm_summary,
+            'sup_summary':   sup_summary,
+            'team_summary':  team_summary,
         })
 
 @app.route("/admin")

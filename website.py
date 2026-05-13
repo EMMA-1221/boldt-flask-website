@@ -4,7 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import json
 from dataset import data_import, project_data
-from Models import cim_model, fpm_model, get_person_data
+from Models import (cim_model, fpm_model, get_person_data,
+                    cim_industry_model, fpm_industry_model,
+                    cim_contract_model, fpm_contract_model)
 from models import db, User
 
 app = Flask(__name__)
@@ -84,47 +86,100 @@ def tool():
         if type(row) == type('string'):
             return json.dumps({'error': row})
 
-        project = {
-            'industry': data['industry'],
-            'contract': data['contract'],
-            'length': int(data['length'].replace(',', '')),
-        }
+        industry = data['industry']
+        contract = data['contract']
+        length   = int(data['length'].replace(',', ''))
+        project  = {'industry': industry, 'contract': contract, 'length': length}
 
-        # calculate CIM and FPM per person
-        members = []
+        # --- Row 1: Industry ---
+        ind_cim = round(cim_industry_model(industry), 4)
+        ind_fpm = round(fpm_industry_model(industry), 4)
+
+        # --- Row 2: Contract Type ---
+        con_cim = round(cim_contract_model(contract), 4)
+        con_fpm = round(fpm_contract_model(contract), 4)
+
+        # --- collect PM and Sup names ---
+        pm_names  = []
+        sup_names = []
+        all_members = []
+
         for i in range(1, 11):
             name = data.get(f'name_{i}', '')
             role = data.get(f'role_{i}', '')
             if name != '':
-                person = get_person_data(name, role, P3, project)
-                cim = round(cim_model(person), 4)
-                fpm = round(fpm_model(person), 4)
-                members.append({
-                    'name': name,
-                    'role': role,
-                    'cim': str(cim),
-                    'fpm': str(fpm)
-                })
+                all_members.append({'name': name, 'role': role})
+                if role == 'PM':
+                    pm_names.append(name)
+                elif role == 'Sup':
+                    sup_names.append(name)
 
-        # average across team
-        avg_cim = round(sum(float(m['cim']) for m in members) / len(members), 4)
-        avg_fpm = round(sum(float(m['fpm']) for m in members) / len(members), 4)
-
-        # result based on Alexa's CIM quartile thresholds
-        if avg_cim < -0.00939:
-            result = 'in bottom 1/4 of teams'
-        elif avg_cim < 0.01803:
-            result = 'in 2nd quartile of teams'
-        elif avg_cim < 0.07517:
-            result = 'in 3rd quartile of teams'
+        # --- Row 3: Project Manager ---
+        if pm_names:
+            pm_cims = [cim_model(get_person_data(n, 'PM', P3, project)) for n in pm_names]
+            pm_fpms = [fpm_model(get_person_data(n, 'PM', P3, project)) for n in pm_names]
+            pm_cim = round(sum(pm_cims) / len(pm_cims), 4)
+            pm_fpm = round(sum(pm_fpms) / len(pm_fpms), 4)
         else:
-            result = 'in top 1/4 of teams'
+            pm_cim = round(cim_model(get_person_data(None, 'PM', P3, project)), 4)
+            pm_fpm = round(fpm_model(get_person_data(None, 'PM', P3, project)), 4)
+
+        # --- Row 4: Superintendent ---
+        if sup_names:
+            sup_cims = [cim_model(get_person_data(n, 'Sup', P3, project)) for n in sup_names]
+            sup_fpms = [fpm_model(get_person_data(n, 'Sup', P3, project)) for n in sup_names]
+            sup_cim = round(sum(sup_cims) / len(sup_cims), 4)
+            sup_fpm = round(sum(sup_fpms) / len(sup_fpms), 4)
+        else:
+            sup_cim = round(cim_model(get_person_data(None, 'Sup', P3, project)), 4)
+            sup_fpm = round(fpm_model(get_person_data(None, 'Sup', P3, project)), 4)
+
+        # --- Row 5: Team (all members averaged) ---
+        team_cims = [cim_model(get_person_data(m['name'], m['role'], P3, project)) for m in all_members]
+        team_fpms = [fpm_model(get_person_data(m['name'], m['role'], P3, project)) for m in all_members]
+        team_cim = round(sum(team_cims) / len(team_cims), 4)
+        team_fpm = round(sum(team_fpms) / len(team_fpms), 4)
+
+        # --- Row 6: All Factors (average of all 5 rows) ---
+        all_cim = round((ind_cim + con_cim + pm_cim + sup_cim + team_cim) / 5, 4)
+        all_fpm = round((ind_fpm + con_fpm + pm_fpm + sup_fpm + team_fpm) / 5, 4)
+
+        # --- Results based on Alexa's quartile thresholds ---
+        def cim_result(val):
+            if val < -0.00939:
+                return 'Bottom 1/4 of teams'
+            elif val < 0.01803:
+                return '2nd quartile of teams'
+            elif val < 0.07517:
+                return '3rd quartile of teams'
+            else:
+                return 'Top 1/4 of teams'
+
+        def fpm_result(val):
+            if val < 0.09019:
+                return 'Bottom 1/4 of teams & projects'
+            elif val < 0.15883:
+                return '2nd quartile of teams & projects'
+            elif val < 0.24343:
+                return '3rd quartile of teams & projects'
+            else:
+                return 'Top 1/4 of teams & projects'
 
         return json.dumps({
-            'members': members,
-            'avg_cim': str(avg_cim),
-            'avg_fpm': str(avg_fpm),
-            'result': result
+            'industry_cim':  str(ind_cim),
+            'industry_fpm':  str(ind_fpm),
+            'contract_cim':  str(con_cim),
+            'contract_fpm':  str(con_fpm),
+            'pm_cim':        str(pm_cim),
+            'pm_fpm':        str(pm_fpm),
+            'sup_cim':       str(sup_cim),
+            'sup_fpm':       str(sup_fpm),
+            'team_cim':      str(team_cim),
+            'team_fpm':      str(team_fpm),
+            'all_cim':       str(all_cim),
+            'all_fpm':       str(all_fpm),
+            'cim_result':    cim_result(all_cim),
+            'fpm_result':    fpm_result(all_fpm),
         })
 
 @app.route("/admin")

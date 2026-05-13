@@ -269,6 +269,47 @@
           <h3 class="is-size-4">Errors:</h3>
           <p id="errors_list"></p>
         </div>
+
+        <!-- Summary Section -->
+        <div id="summary_section" class="is-hidden mt-5">
+          <h3 class="is-size-3 mb-3">Summary</h3>
+
+          <!-- PM Summary -->
+          <div id="pm_summary_div">
+            <button class="button is-info is-light mb-2" onclick="toggleSection('pm_details')">
+              Project Manager Personality Traits
+            </button>
+            <div id="pm_details" class="is-hidden box">
+              <table class="table is-bordered is-striped is-fullwidth">
+                <tbody id="pm_summary_body"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Sup Summary -->
+          <div id="sup_summary_div" class="mt-3">
+            <button class="button is-info is-light mb-2" onclick="toggleSection('sup_details')">
+              Superintendent Personality Traits
+            </button>
+            <div id="sup_details" class="is-hidden box">
+              <table class="table is-bordered is-striped is-fullwidth">
+                <tbody id="sup_summary_body"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Team Summary -->
+          <div class="mt-3">
+            <button class="button is-info is-light mb-2" onclick="toggleSection('team_details')">
+              Team Personality Traits (Averaged)
+            </button>
+            <div id="team_details" class="is-hidden box">
+              <table class="table is-bordered is-striped is-fullwidth">
+                <tbody id="team_summary_body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div id="tool_hints" class="is-hidden">

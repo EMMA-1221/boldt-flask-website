@@ -82,15 +82,26 @@ def data_import():
     # merge Cons into P3 by Name
     P3 = P3.merge(Cons[['Name', 'Cons']], on='Name', how='left')
 
-    # read Drake P3 Profiles for Learning Style
+    # read Drake P3 Profiles for Learning Style and all scores
     Drake = pd.read_excel(os.path.join('Databases', 'Drake_P3_Profiles.xlsx'), engine='openpyxl')
     Drake['Name'] = (Drake['FIRST NAME'].str.strip() + ' ' + Drake['LAST NAME'].str.strip()).str.lower()
     Drake = Drake.drop_duplicates(subset=['Name'])
-    Drake = Drake[['Name', 'LEARNING STYLE']]
-    Drake = Drake.rename(columns={'LEARNING STYLE': 'Learning_Style'})
-
-    # merge Learning Style into P3
-    P3 = P3.merge(Drake[['Name', 'Learning_Style']], on='Name', how='left')
+    Drake = Drake.rename(columns={
+        'LEARNING STYLE': 'Learning_Style',
+        'ACTIVIST': 'Activist',
+        'REFLECTOR': 'Reflector',
+        'THEORIST': 'Theorist',
+        'PRAGMATIST': 'Pragmatist',
+        'FSP (OF 15)': 'FSP',
+        'NCL (OF 30)': 'NCL',
+        'STRESS LEVEL (10 TO 90)': 'Stress_Level',
+        'ENERGY LEVEL (10 TO 90)': 'Energy_Level',
+        'PROACTIVITY (OF 119)': 'Proactivity_Score',
+        'SELF-MONITORING (OF 18)': 'Self_Monitoring_Score',
+    })
+    drake_cols = ['Name', 'Learning_Style', 'Activist', 'Reflector', 'Theorist', 'Pragmatist',
+                  'FSP', 'NCL', 'Stress_Level', 'Energy_Level', 'Proactivity_Score', 'Self_Monitoring_Score']
+    P3 = P3.merge(Drake[drake_cols], on='Name', how='left')
 
     # create binary columns for Pragmatist and Reflector
     P3['Is_Pragmatist'] = (P3['Learning_Style'] == 'Pragmatist').astype(int)
@@ -102,7 +113,10 @@ def data_import():
              'High_Trait', 'Low_Trait', 'Decision_Style', 'Leadership_Style',
              'Energy_Category', 'Stress_Category', 'Energy', 'Stress',
              'Proactivity', 'Self-Monitoring',
-             'Learning_Style', 'Is_Pragmatist', 'Is_Reflector']]
+             'Learning_Style', 'Is_Pragmatist', 'Is_Reflector',
+             'Activist', 'Reflector', 'Theorist', 'Pragmatist',
+             'FSP', 'NCL', 'Stress_Level', 'Energy_Level',
+             'Proactivity_Score', 'Self_Monitoring_Score']]
 
     P3.rename(columns={'First Name': 'First', 'Last Name': 'Last'}, inplace=True)
     P3['First'] = P3['First'].str.strip().str.lower()

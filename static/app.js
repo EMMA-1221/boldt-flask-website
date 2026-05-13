@@ -60,10 +60,12 @@ r_e("clear_form").addEventListener("click", () => {
     r_e(`team_mem_${x}`).value = "";
     r_e(`team_mem_${x}_role`).value = "";
   }
-  r_e("results_body").innerHTML = "";
-  r_e("average_cim_val").innerHTML = "";
-  r_e("average_fpm_val").innerHTML = "";
-  r_e("result_val").innerHTML = "";
+  ["industry_cim","industry_fpm","contract_cim","contract_fpm",
+   "pm_cim","pm_fpm","sup_cim","sup_fpm",
+   "team_cim","team_fpm","all_cim","all_fpm",
+   "cim_result","fpm_result"].forEach(id => {
+    r_e(id).innerHTML = "";
+  });
   r_e("errors_list").innerHTML = "";
 });
 
@@ -144,55 +146,42 @@ r_e("submit_form").addEventListener("click", () => {
     xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
     let body = JSON.stringify({
       industry: r_e("Industry").value,
-      revenue: r_e("Revenue").value,
-      length: r_e("Length").value,
+      revenue:  r_e("Revenue").value,
+      length:   r_e("Length").value,
       contract: r_e("Contract").value,
-      zip: r_e("Zip").value,
-      name_1: r_e("team_mem_1").value,
-      role_1: r_e("team_mem_1_role").value,
-      name_2: r_e("team_mem_2").value,
-      role_2: r_e("team_mem_2_role").value,
-      name_3: r_e("team_mem_3").value,
-      role_3: r_e("team_mem_3_role").value,
-      name_4: r_e("team_mem_4").value,
-      role_4: r_e("team_mem_4_role").value,
-      name_5: r_e("team_mem_5").value,
-      role_5: r_e("team_mem_5_role").value,
-      name_6: r_e("team_mem_6").value,
-      role_6: r_e("team_mem_6_role").value,
-      name_7: r_e("team_mem_7").value,
-      role_7: r_e("team_mem_7_role").value,
-      name_8: r_e("team_mem_8").value,
-      role_8: r_e("team_mem_8_role").value,
-      name_9: r_e("team_mem_9").value,
-      role_9: r_e("team_mem_9_role").value,
-      name_10: r_e("team_mem_10").value,
-      role_10: r_e("team_mem_10_role").value,
+      zip:      r_e("Zip").value,
+      name_1:  r_e("team_mem_1").value,  role_1:  r_e("team_mem_1_role").value,
+      name_2:  r_e("team_mem_2").value,  role_2:  r_e("team_mem_2_role").value,
+      name_3:  r_e("team_mem_3").value,  role_3:  r_e("team_mem_3_role").value,
+      name_4:  r_e("team_mem_4").value,  role_4:  r_e("team_mem_4_role").value,
+      name_5:  r_e("team_mem_5").value,  role_5:  r_e("team_mem_5_role").value,
+      name_6:  r_e("team_mem_6").value,  role_6:  r_e("team_mem_6_role").value,
+      name_7:  r_e("team_mem_7").value,  role_7:  r_e("team_mem_7_role").value,
+      name_8:  r_e("team_mem_8").value,  role_8:  r_e("team_mem_8_role").value,
+      name_9:  r_e("team_mem_9").value,  role_9:  r_e("team_mem_9_role").value,
+      name_10: r_e("team_mem_10").value, role_10: r_e("team_mem_10_role").value,
     });
 
     xhr.onload = function () {
-      answers = JSON.parse(xhr.response);
-
+      let answers = JSON.parse(xhr.response);
       if (answers.error) {
         r_e("errors_list").innerHTML += answers.error;
         return;
       }
-
-      // populate table - one row per team member
-      r_e("results_body").innerHTML = "";
-      answers.members.forEach((member) => {
-        let row = `<tr>
-          <td>${member.name} (${member.role})</td>
-          <td>${member.cim}</td>
-          <td>${member.fpm}</td>
-        </tr>`;
-        r_e("results_body").innerHTML += row;
-      });
-
-      // average and result
-      r_e("average_cim_val").innerHTML = answers.avg_cim;
-      r_e("average_fpm_val").innerHTML = answers.avg_fpm;
-      r_e("result_val").innerHTML = answers.result;
+      r_e("industry_cim").innerHTML = answers.industry_cim;
+      r_e("industry_fpm").innerHTML = answers.industry_fpm;
+      r_e("contract_cim").innerHTML = answers.contract_cim;
+      r_e("contract_fpm").innerHTML = answers.contract_fpm;
+      r_e("pm_cim").innerHTML       = answers.pm_cim;
+      r_e("pm_fpm").innerHTML       = answers.pm_fpm;
+      r_e("sup_cim").innerHTML      = answers.sup_cim;
+      r_e("sup_fpm").innerHTML      = answers.sup_fpm;
+      r_e("team_cim").innerHTML     = answers.team_cim;
+      r_e("team_fpm").innerHTML     = answers.team_fpm;
+      r_e("all_cim").innerHTML      = answers.all_cim;
+      r_e("all_fpm").innerHTML      = answers.all_fpm;
+      r_e("cim_result").innerHTML   = answers.cim_result;
+      r_e("fpm_result").innerHTML   = answers.fpm_result;
     };
 
     xhr.send(body);

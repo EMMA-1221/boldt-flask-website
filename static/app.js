@@ -60,6 +60,8 @@ r_e("clear_form").addEventListener("click", () => {
     r_e(`team_mem_${x}`).value = "";
     r_e(`team_mem_${x}_role`).value = "";
   }
+  r_e("industry_label").innerHTML = "Industry";
+  r_e("contract_label").innerHTML = "Contract Type";
   ["industry_cim","industry_fpm","contract_cim","contract_fpm",
    "pm_cim","pm_fpm","sup_cim","sup_fpm",
    "team_cim","team_fpm","all_cim","all_fpm",
@@ -168,6 +170,8 @@ r_e("submit_form").addEventListener("click", () => {
         r_e("errors_list").innerHTML += answers.error;
         return;
       }
+      r_e("industry_label").innerHTML = r_e("Industry").options[r_e("Industry").selectedIndex].text;
+      r_e("contract_label").innerHTML = r_e("Contract").options[r_e("Contract").selectedIndex].text;
       r_e("industry_cim").innerHTML = answers.industry_cim;
       r_e("industry_fpm").innerHTML = answers.industry_fpm;
       r_e("contract_cim").innerHTML = answers.contract_cim;

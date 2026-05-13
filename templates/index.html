@@ -23,6 +23,13 @@
           <a id="guidance_button" class="navbar-item has-text-white"> Team Building Guidance </a>
           <a id="estimator_button" class="navbar-item has-text-white"> Team Performance Estimator</a>
         </div>
+        <div class="navbar-end">
+          {% if logged_in %}
+            <a href="/logout" class="navbar-item has-text-white"> Logout </a>
+          {% else %}
+            <a href="/login" class="navbar-item has-text-white"> Login </a>
+          {% endif %}
+        </div>
       </div>
     </nav>
 
@@ -239,8 +246,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Industry</td><td id="industry_cim"></td><td id="industry_fpm"></td></tr>
-                <tr><td>Contract Type</td><td id="contract_cim"></td><td id="contract_fpm"></td></tr>
+                <tr><td id="industry_label">Industry</td><td id="industry_cim"></td><td id="industry_fpm"></td></tr>
+                <tr><td id="contract_label">Contract Type</td><td id="contract_cim"></td><td id="contract_fpm"></td></tr>
                 <tr><td>Project Manager</td><td id="pm_cim"></td><td id="pm_fpm"></td></tr>
                 <tr><td>Superintendent</td><td id="sup_cim"></td><td id="sup_fpm"></td></tr>
                 <tr><td>Team</td><td id="team_cim"></td><td id="team_fpm"></td></tr>

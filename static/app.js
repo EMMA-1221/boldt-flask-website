@@ -1,3 +1,44 @@
+// toggle section visibility
+function toggleSection(id) {
+  const el = document.querySelector(`#${id}`);
+  el.classList.toggle("is-hidden");
+}
+
+// build summary table rows from a data object
+function buildSummaryRows(data) {
+  const labels = {
+    "Pri_D": "Primary Dominance",
+    "Pri_E": "Primary Extroversion",
+    "Pri_P": "Primary Patience",
+    "Pri_C": "Primary Conformity",
+    "Cons": "Conscientiousness",
+    "Env_D": "Env. Adj. Dominance",
+    "Env_E": "Env. Adj. Extroversion",
+    "Env_P": "Env. Adj. Patience",
+    "Env_C": "Env. Adj. Conformity",
+    "High_Trait": "High Trait",
+    "Low_Trait": "Low Trait",
+    "Decision_Style": "Decision Style",
+    "Leadership_Style": "Leadership Style",
+    "Learning_Style": "Primary Learning Style",
+    "Activist": "Activist Score",
+    "Reflector": "Reflector Score",
+    "Theorist": "Theorist Score",
+    "Pragmatist": "Pragmatist Score",
+    "Stress_Level": "Stress Level",
+    "Energy_Level": "Energy Level",
+    "Proactivity_Score": "Proactivity",
+    "Self_Monitoring_Score": "Self-Monitoring",
+  };
+  let html = "";
+  for (const [key, label] of Object.entries(labels)) {
+    if (data[key] !== undefined) {
+      html += `<tr><td><strong>${label}</strong></td><td>${data[key]}</td></tr>`;
+    }
+  }
+  return html;
+}
+
 // element grabber
 function r_e(id) {
   return document.querySelector(`#${id}`);
@@ -69,6 +110,13 @@ r_e("clear_form").addEventListener("click", () => {
     r_e(id).innerHTML = "";
   });
   r_e("errors_list").innerHTML = "";
+  r_e("summary_section").classList.add("is-hidden");
+  r_e("pm_summary_body").innerHTML = "";
+  r_e("sup_summary_body").innerHTML = "";
+  r_e("team_summary_body").innerHTML = "";
+  r_e("pm_details").classList.add("is-hidden");
+  r_e("sup_details").classList.add("is-hidden");
+  r_e("team_details").classList.add("is-hidden");
 });
 
 // team_names injected from Flask
@@ -186,6 +234,25 @@ r_e("submit_form").addEventListener("click", () => {
       r_e("all_fpm").innerHTML      = answers.all_fpm;
       r_e("cim_result").innerHTML   = answers.cim_result;
       r_e("fpm_result").innerHTML   = answers.fpm_result;
+
+      // summary section
+      r_e("summary_section").classList.remove("is-hidden");
+
+      if (answers.pm_summary) {
+        r_e("pm_summary_div").classList.remove("is-hidden");
+        r_e("pm_summary_body").innerHTML = buildSummaryRows(answers.pm_summary);
+      } else {
+        r_e("pm_summary_div").classList.add("is-hidden");
+      }
+
+      if (answers.sup_summary) {
+        r_e("sup_summary_div").classList.remove("is-hidden");
+        r_e("sup_summary_body").innerHTML = buildSummaryRows(answers.sup_summary);
+      } else {
+        r_e("sup_summary_div").classList.add("is-hidden");
+      }
+
+      r_e("team_summary_body").innerHTML = buildSummaryRows(answers.team_summary);
     };
 
     xhr.send(body);

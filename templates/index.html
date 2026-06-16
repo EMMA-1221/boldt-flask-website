@@ -140,9 +140,9 @@
 </div>
 
 <!-- DURATION GUIDANCE -->
-<div id="guidance_duration" class="is-hidden mt-5">
-  <h3 class="is-size-4 mb-3">Project Duration — Impact on Profit Margin</h3>
-  <table class="table is-bordered is-striped" style="margin: 0 auto">
+<div id="guidance_duration_less" class="is-hidden mt-5">
+  <h3 class="is-size-4 mb-3">Project Duration (&lt;1 Year) — Impact on Profit Margin</h3>
+  <table class="table is-bordered is-striped mb-4" style="margin: 0 auto">
     <thead>
       <tr>
         <th>Model</th>
@@ -155,15 +155,40 @@
       <tr><td>Full Dataset FPM</td><td>101 – 146.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
       <tr><td>Full Dataset FPM</td><td>&gt; 146.5 Days</td><td class="has-text-success">Positive but lower FPM (+7%)</td></tr>
       <tr><td>Full Dataset CIM</td><td>≤ 115.5 Days</td><td class="has-text-danger">Severely low CIM (-76%)</td></tr>
-      <tr><td>Full Dataset CIM</td><td>&gt; 900.5 Days</td><td class="has-text-success">Above-average CIM (+1%)</td></tr>
+      <tr><td>Lump Sum FPM</td><td>≤ 80 Days</td><td class="has-text-success">High FPM (+21%)</td></tr>
       <tr><td>Lump Sum FPM</td><td>&gt; 80 Days</td><td class="has-text-success">Highest FPM path (+24%)</td></tr>
-      <tr><td>GMP FPM</td><td>&gt; 101 Days</td><td class="has-text-success">Above-average FPM (+7%)</td></tr>
       <tr><td>Time &amp; Materials FPM</td><td>≤ 374.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
     </tbody>
   </table>
   <div class="box">
-    <p>Projects that have a duration less than 101 days will typically lead to lower profit margins, with a possibility for negative profit margins. Projects between 101 and 146.5 days will typically lead to the highest profit margins.</p>
-    <p class="mt-3"><strong>Recommendation:</strong> Projects with durations greater than 101 days should be prioritized for maximizing profit margins. As the duration exceeds 146.5 days, profit margins decrease but are still typically positive.</p>
+    <p>For shorter projects, duration has a significant impact on profit margins. Projects under 101 days tend to underperform, while those in the 101–146.5 day range typically yield the highest margins. Lump Sum and Time & Materials contracts perform well in this range.</p>
+    <p class="mt-3"><strong>Recommendation:</strong> Aim for project durations between 101 and 146.5 days to maximize profit margins on shorter projects.</p>
+  </div>
+</div>
+
+<div id="guidance_duration_great" class="is-hidden mt-5">
+  <h3 class="is-size-4 mb-3">Project Duration (&gt;1 Year) — Impact on Profit Margin</h3>
+  <table class="table is-bordered is-striped mb-4" style="margin: 0 auto">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Duration Threshold</th>
+        <th>Impact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Full Dataset CIM</td><td>≤ 900.5 Days</td><td class="has-text-danger">Below-average CIM (-9%)</td></tr>
+      <tr><td>Full Dataset CIM</td><td>&gt; 900.5 Days</td><td class="has-text-success">Above-average CIM (+1%)</td></tr>
+      <tr><td>Lump Sum FPM</td><td>≤ 341.5 Days</td><td class="has-text-danger">Below-average FPM (-4%)</td></tr>
+      <tr><td>Lump Sum FPM</td><td>&gt; 341.5 Days</td><td class="has-text-success">Above-average FPM (+4%)</td></tr>
+      <tr><td>Lump Sum FPM</td><td>&gt; 647 Days</td><td class="has-text-success">Above-average FPM for LS (+15%)</td></tr>
+      <tr><td>GMP FPM</td><td>&gt; 866 Days</td><td class="has-text-success">Below-average FPM for GMP (+9%)</td></tr>
+      <tr><td>Time &amp; Materials FPM</td><td>&gt; 374.5 Days</td><td class="has-text-danger">Severely low FPM (+1%)</td></tr>
+    </tbody>
+  </table>
+  <div class="box">
+    <p>For longer projects, Lump Sum contracts tend to perform better as duration increases beyond 341.5 days. Time & Materials contracts see significantly reduced margins on longer projects. Change in margin improves slightly for very long projects (over 900 days).</p>
+    <p class="mt-3"><strong>Recommendation:</strong> For long-duration projects, prioritize Lump Sum contracts. Avoid Time & Materials contracts for projects exceeding one year.</p>
   </div>
 </div>
 

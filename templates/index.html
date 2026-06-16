@@ -73,13 +73,15 @@
             <option value="great_yr">Length: &gt;1yr</option>
             <option value="null">-------------------------</option>
             <option value="LS">Contract Type: LS</option>
-            <option value="T&M">Contract Type: T&M</option>
+            <option value="T&M">Contract Type: T&amp;M</option>
             <option value="GMP">Contract Type: GMP</option>
-            <option value="T&M-GMP">Contract Type: T&M-GMP</option>
+            <option value="T&M-GMP">Contract Type: T&amp;M-GMP</option>
             <option value="ILPD">Contract Type: ILPD</option>
           </select>
         </div>
       </div>
+
+      <!-- TRAIT GUIDANCE -->
       <div id="trait_guidance">
         <p class="my-4">
           Use the following to connect suggested Drake P3 scores with actionable items. The following information is the product of Janine Smith of JSPerformance Strategies LLC <br /><br />
@@ -113,146 +115,134 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <!-- CONTRACT TYPE GUIDANCE -->
-<div id="guidance_contract_type" class="is-hidden mt-5">
-  <h3 class="is-size-4 mb-3 mt-4">Contract Type — Impact on Profit Margin</h3>
-  <table class="table is-bordered is-striped" style="margin: 0 auto">
-    <thead>
-      <tr>
-        <th>Contract Type</th>
-        <th>Model</th>
-        <th>Metric</th>
-        <th>Impact</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Lump Sum (LS)</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.014)</td></tr>
-      <tr><td>Lump Sum (LS)</td><td>Full Dataset</td><td>CIM</td><td class="has-text-success">Increases (+0.021)</td></tr>
-      <tr><td>Time &amp; Materials (TM)</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.052)</td></tr>
-      <tr><td>Integrated Project Delivery</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.12)</td></tr>
-    </tbody>
-  </table>
-  <div class="box">
-    <p>Projects that utilize Lump Sum contracts will lead to slightly higher profit margins while projects utilizing Time and Materials contracts typically lead to significantly higher profit margins. Projects that use Integrated Project Delivery contracts typically lead to lower profit margins with the possibility for negative margins.</p>
-    <p class="mt-3"><strong>Recommendation:</strong> Projects with Lump Sum or Time and Materials contracts should be prioritized for maximizing profit margins.</p>
-  </div>
-</div>
 
-<!-- DURATION GUIDANCE -->
-<div id="guidance_duration_less" class="is-hidden mt-5">
-  <h3 class="is-size-4 mb-3 mt-4">Project Duration (&lt;1 Year) — Impact on Profit Margin</h3>
-  <table class="table is-bordered is-striped mb-4" style="margin: 0 auto">
-    <thead>
-      <tr>
-        <th>Model</th>
-        <th>Duration Threshold</th>
-        <th>Impact</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Full Dataset FPM</td><td>≤ 101 Days</td><td class="has-text-danger">Lower-than-average FPM (-11%)</td></tr>
-      <tr><td>Full Dataset FPM</td><td>101 – 146.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
-      <tr><td>Full Dataset FPM</td><td>&gt; 146.5 Days</td><td class="has-text-success">Positive but lower FPM (+7%)</td></tr>
-      <tr><td>Full Dataset CIM</td><td>≤ 115.5 Days</td><td class="has-text-danger">Severely low CIM (-76%)</td></tr>
-      <tr><td>Lump Sum FPM</td><td>≤ 80 Days</td><td class="has-text-success">High FPM (+21%)</td></tr>
-      <tr><td>Lump Sum FPM</td><td>&gt; 80 Days</td><td class="has-text-success">Highest FPM path (+24%)</td></tr>
-      <tr><td>Time &amp; Materials FPM</td><td>≤ 374.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
-    </tbody>
-  </table>
-  <div class="box">
-    <p>For shorter projects, duration has a significant impact on profit margins. Projects under 101 days tend to underperform, while those in the 101–146.5 day range typically yield the highest margins. Lump Sum and Time & Materials contracts perform well in this range.</p>
-    <p class="mt-3"><strong>Recommendation:</strong> Aim for project durations between 101 and 146.5 days to maximize profit margins on shorter projects.</p>
-  </div>
-</div>
+      <!-- CONTRACT TYPE GUIDANCE -->
+      <div id="guidance_contract_type" class="is-hidden mt-5">
+        <h3 class="is-size-4 mb-3">Contract Type — Impact on Profit Margin</h3>
+        <table class="table is-bordered is-striped" style="margin: 0 auto">
+          <thead>
+            <tr><th>Contract Type</th><th>Model</th><th>Metric</th><th>Impact</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Lump Sum (LS)</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.014)</td></tr>
+            <tr><td>Lump Sum (LS)</td><td>Full Dataset</td><td>CIM</td><td class="has-text-success">Increases (+0.021)</td></tr>
+            <tr><td>Time &amp; Materials (TM)</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.052)</td></tr>
+            <tr><td>Integrated Project Delivery</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.12)</td></tr>
+          </tbody>
+        </table>
+        <div class="box mt-4">
+          <p>Projects that utilize Lump Sum contracts will lead to slightly higher profit margins while projects utilizing Time and Materials contracts typically lead to significantly higher profit margins. Projects that use Integrated Project Delivery contracts typically lead to lower profit margins with the possibility for negative margins.</p>
+          <p class="mt-3"><strong>Recommendation:</strong> Projects with Lump Sum or Time and Materials contracts should be prioritized for maximizing profit margins.</p>
+        </div>
+      </div>
 
-<div id="guidance_duration_great" class="is-hidden mt-5">
-  <h3 class="is-size-4 mb-3 mt-4">Project Duration (&gt;1 Year) — Impact on Profit Margin</h3>
-  <table class="table is-bordered is-striped mb-4" style="margin: 0 auto">
-    <thead>
-      <tr>
-        <th>Model</th>
-        <th>Duration Threshold</th>
-        <th>Impact</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Full Dataset CIM</td><td>≤ 900.5 Days</td><td class="has-text-danger">Below-average CIM (-9%)</td></tr>
-      <tr><td>Full Dataset CIM</td><td>&gt; 900.5 Days</td><td class="has-text-success">Above-average CIM (+1%)</td></tr>
-      <tr><td>Lump Sum FPM</td><td>≤ 341.5 Days</td><td class="has-text-danger">Below-average FPM (-4%)</td></tr>
-      <tr><td>Lump Sum FPM</td><td>&gt; 341.5 Days</td><td class="has-text-success">Above-average FPM (+4%)</td></tr>
-      <tr><td>Lump Sum FPM</td><td>&gt; 647 Days</td><td class="has-text-success">Above-average FPM for LS (+15%)</td></tr>
-      <tr><td>GMP FPM</td><td>&gt; 866 Days</td><td class="has-text-success">Below-average FPM for GMP (+9%)</td></tr>
-      <tr><td>Time &amp; Materials FPM</td><td>&gt; 374.5 Days</td><td class="has-text-danger">Severely low FPM (+1%)</td></tr>
-    </tbody>
-  </table>
-  <div class="box">
-    <p>For longer projects, Lump Sum contracts tend to perform better as duration increases beyond 341.5 days. Time & Materials contracts see significantly reduced margins on longer projects. Change in margin improves slightly for very long projects (over 900 days).</p>
-    <p class="mt-3"><strong>Recommendation:</strong> For long-duration projects, prioritize Lump Sum contracts. Avoid Time & Materials contracts for projects exceeding one year.</p>
-  </div>
-</div>
+      <!-- DURATION GUIDANCE < 1yr -->
+      <div id="guidance_duration_less" class="is-hidden mt-5">
+        <h3 class="is-size-4 mb-3">Project Duration (&lt;1 Year) — Impact on Profit Margin</h3>
+        <table class="table is-bordered is-striped" style="margin: 0 auto">
+          <thead>
+            <tr><th>Model</th><th>Duration Threshold</th><th>Impact</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Full Dataset FPM</td><td>≤ 101 Days</td><td class="has-text-danger">Lower-than-average FPM (-11%)</td></tr>
+            <tr><td>Full Dataset FPM</td><td>101 – 146.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
+            <tr><td>Full Dataset FPM</td><td>&gt; 146.5 Days</td><td class="has-text-success">Positive but lower FPM (+7%)</td></tr>
+            <tr><td>Full Dataset CIM</td><td>≤ 115.5 Days</td><td class="has-text-danger">Severely low CIM (-76%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>≤ 80 Days</td><td class="has-text-success">High FPM (+21%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>&gt; 80 Days</td><td class="has-text-success">Highest FPM path (+24%)</td></tr>
+            <tr><td>Time &amp; Materials FPM</td><td>≤ 374.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
+          </tbody>
+        </table>
+        <div class="box mt-4">
+          <p>For shorter projects, duration has a significant impact on profit margins. Projects under 101 days tend to underperform, while those in the 101–146.5 day range typically yield the highest margins. Lump Sum and Time &amp; Materials contracts perform well in this range.</p>
+          <p class="mt-3"><strong>Recommendation:</strong> Aim for project durations between 101 and 146.5 days to maximize profit margins on shorter projects.</p>
+        </div>
+      </div>
 
-<!-- PERSONALITY GUIDANCE -->
-<div id="guidance_personality" class="is-hidden mt-5">
-  <h3 class="is-size-4 mb-3 mt-4">Personality Factors — Impact on Profit Margin</h3>
-  <table class="table is-bordered is-striped" style="margin: 0 auto">
-    <thead>
-      <tr>
-        <th>Personality Trait</th>
-        <th>Model</th>
-        <th>Metric</th>
-        <th>Impact</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Primary Extroversion</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.0013)</td></tr>
-      <tr><td>Primary Extroversion</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.011)</td></tr>
-      <tr><td>Env. Adj. Dominance</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.001)</td></tr>
-      <tr><td>Env. Adj. Dominance</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.0012)</td></tr>
-      <tr><td>Proactivity</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.0104)</td></tr>
-      <tr><td>Proactivity</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.051)</td></tr>
-      <tr><td>Reflector Learning Style</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.022)</td></tr>
-      <tr><td>Reflector Learning Style</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.23)</td></tr>
-      <tr><td>Pragmatist Learning Style</td><td>Full Dataset</td><td>CIM</td><td class="has-text-success">Increases (+0.016)</td></tr>
-      <tr><td>Primary Patience</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.0016)</td></tr>
-      <tr><td>Energy Level</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.018)</td></tr>
-    </tbody>
-  </table>
-  <div class="box">
-    <p>Teams that have lower primary extroversion and lower environmental adjustment dominance will typically lead to higher profit margins. Teams with higher proactivity and a "Reflector" learning style will typically lead to the highest final profit margins, while teams with a "Pragmatist" learning style will typically lead to the highest change in margin.</p>
-    <p class="mt-3"><strong>Recommendation:</strong> Teams with highly proactive individuals, reflective thinkers, and lower extroversion should be prioritized for maximizing profit margins.</p>
-  </div>
-</div>
+      <!-- DURATION GUIDANCE > 1yr -->
+      <div id="guidance_duration_great" class="is-hidden mt-5">
+        <h3 class="is-size-4 mb-3">Project Duration (&gt;1 Year) — Impact on Profit Margin</h3>
+        <table class="table is-bordered is-striped" style="margin: 0 auto">
+          <thead>
+            <tr><th>Model</th><th>Duration Threshold</th><th>Impact</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Full Dataset CIM</td><td>≤ 900.5 Days</td><td class="has-text-danger">Below-average CIM (-9%)</td></tr>
+            <tr><td>Full Dataset CIM</td><td>&gt; 900.5 Days</td><td class="has-text-success">Above-average CIM (+1%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>&gt; 341.5 Days</td><td class="has-text-success">Above-average FPM (+4%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>&gt; 647 Days</td><td class="has-text-success">Above-average FPM for LS (+15%)</td></tr>
+            <tr><td>GMP FPM</td><td>&gt; 866 Days</td><td class="has-text-success">Below-average FPM for GMP (+9%)</td></tr>
+            <tr><td>Time &amp; Materials FPM</td><td>&gt; 374.5 Days</td><td class="has-text-danger">Severely low FPM (+1%)</td></tr>
+          </tbody>
+        </table>
+        <div class="box mt-4">
+          <p>For longer projects, Lump Sum contracts tend to perform better as duration increases beyond 341.5 days. Time &amp; Materials contracts see significantly reduced margins on longer projects. Change in margin improves slightly for very long projects (over 900 days).</p>
+          <p class="mt-3"><strong>Recommendation:</strong> For long-duration projects, prioritize Lump Sum contracts. Avoid Time &amp; Materials contracts for projects exceeding one year.</p>
+        </div>
+      </div>
 
-<!-- INDUSTRY GUIDANCE -->
-<div id="guidance_industry" class="is-hidden mt-5">
-  <h3 class="is-size-4 mb-3 mt-4">Industry — Impact on Profit Margin</h3>
-  <table class="table is-bordered is-striped" style="margin: 0 auto">
-    <thead>
-      <tr>
-        <th>Industry</th>
-        <th>Model</th>
-        <th>Metric</th>
-        <th>Impact</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Healthcare</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.049)</td></tr>
-      <tr><td>Healthcare</td><td>Full Dataset</td><td>CIM</td><td class="has-text-danger">Decreases (-0.101)</td></tr>
-      <tr><td>Healthcare</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.051)</td></tr>
-      <tr><td>Institutional</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.100)</td></tr>
-      <tr><td>Institutional</td><td>Full Dataset</td><td>CIM</td><td class="has-text-danger">Decreases (-0.156)</td></tr>
-      <tr><td>Institutional</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.16)</td></tr>
-      <tr><td>Industrial</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.038)</td></tr>
-      <tr><td>Power</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.26)</td></tr>
-      <tr><td>Other</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.18)</td></tr>
-    </tbody>
-  </table>
-  <div class="box">
-    <p>Projects that are in the Power, Industrial, or "Other" industries will typically lead to higher profit margins, particularly when paired with Lump Sum contracts. Projects in the Healthcare and Institutional industries will typically lead to lower profit margins and a severely low change in margin.</p>
-    <p class="mt-3"><strong>Recommendation:</strong> Projects in the Power and Industrial sectors should be prioritized for maximizing profit margins. As the project industry shifts to Healthcare or Institutional, profit margins and change in margin decrease drastically.</p>
-  </div>
-</div>
+      <!-- PERSONALITY GUIDANCE -->
+      <div id="guidance_personality" class="is-hidden mt-5">
+        <h3 class="is-size-4 mb-3">Personality Factors — Impact on Profit Margin</h3>
+        <table class="table is-bordered is-striped" style="margin: 0 auto">
+          <thead>
+            <tr><th>Personality Trait</th><th>Model</th><th>Metric</th><th>Impact</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Primary Extroversion</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.0013)</td></tr>
+            <tr><td>Primary Extroversion</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.011)</td></tr>
+            <tr><td>Env. Adj. Dominance</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.001)</td></tr>
+            <tr><td>Env. Adj. Dominance</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.0012)</td></tr>
+            <tr><td>Proactivity</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.0104)</td></tr>
+            <tr><td>Proactivity</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.051)</td></tr>
+            <tr><td>Reflector Learning Style</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.022)</td></tr>
+            <tr><td>Reflector Learning Style</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.23)</td></tr>
+            <tr><td>Pragmatist Learning Style</td><td>Full Dataset</td><td>CIM</td><td class="has-text-success">Increases (+0.016)</td></tr>
+            <tr><td>Primary Patience</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.0016)</td></tr>
+            <tr><td>Energy Level</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.018)</td></tr>
+          </tbody>
+        </table>
+        <div class="box mt-4">
+          <p>Teams that have lower primary extroversion and lower environmental adjustment dominance will typically lead to higher profit margins. Teams with higher proactivity and a "Reflector" learning style will typically lead to the highest final profit margins, while teams with a "Pragmatist" learning style will typically lead to the highest change in margin.</p>
+          <p class="mt-3"><strong>Recommendation:</strong> Teams with highly proactive individuals, reflective thinkers, and lower extroversion should be prioritized for maximizing profit margins.</p>
+        </div>
+      </div>
+
+      <!-- INDUSTRY GUIDANCE -->
+      <div id="guidance_industry" class="is-hidden mt-5">
+        <h3 class="is-size-4 mb-3">Industry — Impact on Profit Margin</h3>
+        <table class="table is-bordered is-striped" style="margin: 0 auto">
+          <thead>
+            <tr><th>Industry</th><th>Model</th><th>Metric</th><th>Impact</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Healthcare</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.049)</td></tr>
+            <tr><td>Healthcare</td><td>Full Dataset</td><td>CIM</td><td class="has-text-danger">Decreases (-0.101)</td></tr>
+            <tr><td>Healthcare</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.051)</td></tr>
+            <tr><td>Institutional</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.100)</td></tr>
+            <tr><td>Institutional</td><td>Full Dataset</td><td>CIM</td><td class="has-text-danger">Decreases (-0.156)</td></tr>
+            <tr><td>Institutional</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.16)</td></tr>
+            <tr><td>Industrial</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.038)</td></tr>
+            <tr><td>Power</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.26)</td></tr>
+            <tr><td>Other</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.18)</td></tr>
+          </tbody>
+        </table>
+        <div class="box mt-4">
+          <p>Projects that are in the Power, Industrial, or "Other" industries will typically lead to higher profit margins, particularly when paired with Lump Sum contracts. Projects in the Healthcare and Institutional industries will typically lead to lower profit margins and a severely low change in margin.</p>
+          <p class="mt-3"><strong>Note:</strong> Commercial projects did not show statistically significant impacts on profit margin in the study and are therefore not included in the table above.</p>
+          <p class="mt-3"><strong>Recommendation:</strong> Projects in the Power and Industrial sectors should be prioritized for maximizing profit margins. As the project industry shifts to Healthcare or Institutional, profit margins and change in margin decrease drastically.</p>
+        </div>
+      </div>
+
+      <!-- REVENUE GUIDANCE -->
+      <div id="guidance_revenue" class="is-hidden mt-5">
+        <div class="box">
+          <p>Revenue-based guidance is not yet available. For team building recommendations, please refer to the <strong>Company Wide</strong> filter for personality trait guidance, or select a specific <strong>Industry</strong> or <strong>Contract Type</strong> for more targeted insights.</p>
+        </div>
+      </div>
+
+    </div><!-- end guidance_div -->
+
     <div id="estimator_div" class="p-6 is-hidden">
       <h1 class="is-size-1">Team Performance Estimator</h1>
       <div class="field py-3">
@@ -411,8 +401,6 @@
         <!-- Summary Section -->
         <div id="summary_section" class="is-hidden mt-5">
           <h3 class="is-size-3 mb-3">Summary</h3>
-
-          <!-- PM Summary -->
           <div id="pm_summary_div">
             <button class="button is-info is-light mb-2" onclick="toggleSection('pm_details')">
               Project Manager Personality Traits
@@ -423,8 +411,6 @@
               </table>
             </div>
           </div>
-
-          <!-- Sup Summary -->
           <div id="sup_summary_div" class="mt-3">
             <button class="button is-info is-light mb-2" onclick="toggleSection('sup_details')">
               Superintendent Personality Traits
@@ -435,8 +421,6 @@
               </table>
             </div>
           </div>
-
-          <!-- Team Summary -->
           <div class="mt-3">
             <button class="button is-info is-light mb-2" onclick="toggleSection('team_details')">
               Team Personality Traits (Averaged)
@@ -480,9 +464,9 @@
               <option value="great_yr">Length: &gt;1yr</option>
               <option value="null">-------------------------</option>
               <option value="LS">Contract Type: LS</option>
-              <option value="T&M">Contract Type: T&M</option>
+              <option value="T&M">Contract Type: T&amp;M</option>
               <option value="GMP">Contract Type: GMP</option>
-              <option value="T&M-GMP">Contract Type: T&M-GMP</option>
+              <option value="T&M-GMP">Contract Type: T&amp;M-GMP</option>
               <option value="ILPD">Contract Type: ILPD</option>
             </select>
           </div>

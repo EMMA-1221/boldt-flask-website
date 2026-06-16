@@ -71,7 +71,27 @@ r_e("estimator_button").addEventListener("click", () => {
 
 // guidance dropdown
 r_e("guidance_filter").addEventListener("change", () => {
-  // NEEDS TO BE CODED
+  // guidance dropdown
+const guidanceSections = [
+  "trait_guidance", "guidance_contract_type", "guidance_duration",
+  "guidance_personality", "guidance_industry"
+];
+
+function showGuidanceSection(id) {
+  guidanceSections.forEach(s => r_e(s).classList.add("is-hidden"));
+  if (id) r_e(id).classList.remove("is-hidden");
+}
+
+r_e("guidance_filter").addEventListener("change", () => {
+  const val = r_e("guidance_filter").value;
+  if (val === "Trait Guidance") showGuidanceSection("trait_guidance");
+  else if (["LS", "T&M", "GMP", "T&M-GMP", "ILPD"].includes(val)) showGuidanceSection("guidance_contract_type");
+  else if (["less_yr", "great_yr"].includes(val)) showGuidanceSection("guidance_duration");
+  else if (["Commercial","Industrial","Healthcare","Power","Institutional"].includes(val)) showGuidanceSection("guidance_industry");
+  else if (val === "Company_Wide") showGuidanceSection("guidance_personality");
+  else showGuidanceSection(null);
+});
+  
 });
 
 // tool button

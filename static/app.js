@@ -61,6 +61,8 @@ r_e("home_button").addEventListener("click", () => {
 r_e("guidance_button").addEventListener("click", () => {
   hide();
   r_e("guidance_div").classList.remove("is-hidden");
+  // 每次打开 guidance 页面时，根据当前下拉选项显示对应 section
+  r_e("guidance_filter").dispatchEvent(new Event("change"));
 });
 
 // estimator button
@@ -82,15 +84,17 @@ function showGuidanceSection(id) {
 
 r_e("guidance_filter").addEventListener("change", () => {
   const val = r_e("guidance_filter").value;
-  if (val === "Trait Guidance") showGuidanceSection("trait_guidance");
-  else if (["LS", "T&M", "GMP", "T&M-GMP", "ILPD"].includes(val)) showGuidanceSection("guidance_contract_type");
-  else if (val === "less_yr") showGuidanceSection("guidance_duration_less");
-  else if (val === "great_yr") showGuidanceSection("guidance_duration_great");
+  if (val === "Trait Guidance")                                              showGuidanceSection("trait_guidance");
+  else if (["LS", "T&M", "GMP", "T&M-GMP", "ILPD"].includes(val))         showGuidanceSection("guidance_contract_type");
+  else if (val === "less_yr")                                                showGuidanceSection("guidance_duration_less");
+  else if (val === "great_yr")                                               showGuidanceSection("guidance_duration_great");
   else if (["Commercial","Industrial","Healthcare","Power","Institutional"].includes(val)) showGuidanceSection("guidance_industry");
-  else if (val === "Company_Wide") showGuidanceSection("guidance_personality");
-  else showGuidanceSection(null);
+  else if (val === "Company_Wide")                                           showGuidanceSection("guidance_personality");
+  else                                                                       showGuidanceSection(null);
 });
-  
+
+// 页面加载时初始化 guidance sections（全部隐藏，等用户操作）
+showGuidanceSection("trait_guidance");
 
 
 // tool button

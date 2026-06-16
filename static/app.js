@@ -70,9 +70,7 @@ r_e("estimator_button").addEventListener("click", () => {
 });
 
 // guidance dropdown
-r_e("guidance_filter").addEventListener("change", () => {
-  
-  const guidanceSections = [
+const guidanceSections = [
   "trait_guidance", "guidance_contract_type", "guidance_duration_less",
   "guidance_duration_great", "guidance_personality", "guidance_industry"
 ];
@@ -93,7 +91,7 @@ r_e("guidance_filter").addEventListener("change", () => {
   else showGuidanceSection(null);
 });
   
-});
+
 
 // tool button
 r_e("tool_button").addEventListener("click", () => {

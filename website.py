@@ -35,7 +35,9 @@ print("Data loaded!")
 
 @app.route("/")
 def home():
-    return render_template('index.html', team_names=names, logged_in=False)
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    return render_template('index.html', team_names=names, logged_in=True)
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

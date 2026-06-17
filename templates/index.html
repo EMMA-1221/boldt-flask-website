@@ -57,32 +57,16 @@
         <div class="select">
           <select name="guidance_filter" id="guidance_filter">
             <option value="Trait Guidance">Trait Guidance</option>
-            <option value="Company_Wide">Company Wide</option>
-            <option value="null">-------------------------</option>
-            <option value="Commercial">Industry: Commercial</option>
-            <option value="Industrial">Industry: Industrial</option>
-            <option value="Healthcare">Industry: Healthcare</option>
-            <option value="Power">Industry: Power</option>
-            <option value="Institutional">Industry: Institutional</option>
-            <option value="null">-------------------------</option>
-            <option value="1M-3M">Revenue: 1M-3M</option>
-            <option value="3M-10M">Revenue: 3M-10M</option>
-            <option value="10M+">Revenue: 10M+</option>
-            <option value="null">-------------------------</option>
+            <option value="Industry">Industry</option>
             <option value="less_yr">Length: &lt;1yr</option>
             <option value="great_yr">Length: &gt;1yr</option>
-            <option value="null">-------------------------</option>
-            <option value="LS">Contract Type: LS</option>
-            <option value="T&M">Contract Type: T&amp;M</option>
-            <option value="GMP">Contract Type: GMP</option>
-            <option value="T&M-GMP">Contract Type: T&amp;M-GMP</option>
-            <option value="ILPD">Contract Type: ILPD</option>
+            <option value="Contract Type">Contract Type</option>
           </select>
         </div>
       </div>
 
       <!-- TRAIT GUIDANCE -->
-      <div id="trait_guidance">
+      <div id="trait_guidance" class="is-hidden">
         <p class="my-4">
           Use the following to connect suggested Drake P3 scores with actionable items. The following information is the product of Janine Smith of JSPerformance Strategies LLC <br /><br />
           For example, if the results suggest Project Executives with Lower Dominance scores perform better, consider the High Dominance and Low Dominance sections - how can you foster the traits of low dominance and curb the traits of high dominance?
@@ -116,12 +100,110 @@
         </table>
       </div>
 
+      <!-- INDUSTRY GUIDANCE -->
+      <div id="guidance_industry" class="is-hidden mt-5">
+        <h3 class="is-size-4 mb-3">Industry — Impact on Profit Margin</h3>
+        <table class="table is-bordered is-striped" style="margin: 0 auto">
+          <thead>
+            <tr>
+              <th>Industry / Sector</th>
+              <th>Model</th>
+              <th>Metric</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Healthcare</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.049)</td></tr>
+            <tr><td>Healthcare</td><td>Full Dataset</td><td>CIM</td><td class="has-text-danger">Decreases (-0.101)</td></tr>
+            <tr><td>Healthcare</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.051)</td></tr>
+            <tr><td>Healthcare</td><td>LS Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.059)</td></tr>
+            <tr><td>Institutional</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.100)</td></tr>
+            <tr><td>Institutional</td><td>Full Dataset</td><td>CIM</td><td class="has-text-danger">Decreases (-0.156)</td></tr>
+            <tr><td>Institutional</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.16)</td></tr>
+            <tr><td>Institutional</td><td>LS Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.076)</td></tr>
+            <tr><td>Institutional</td><td>TM Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.16)</td></tr>
+            <tr><td>Industrial</td><td>Full Dataset</td><td>CIM</td><td class="has-text-danger">Decreases CIM (-0.039)</td></tr>
+            <tr><td>Industrial</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases FPM (+0.038)</td></tr>
+            <tr><td>Power</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases FPM (+0.26)</td></tr>
+            <tr><td>Other</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases FPM (+0.18)</td></tr>
+          </tbody>
+        </table>
+        <div class="box mt-4">
+          <p>Projects that are in the Power, Industrial, or "Other" industries will typically lead to higher profit margins, particularly when paired with Lump Sum contracts. Projects in the Healthcare and Institutional industries will typically lead to lower profit margins and a severely low change in margin.</p>
+          <p class="mt-3"><strong>Recommendation:</strong> Projects in the Power and Industrial sectors should be prioritized for maximizing profit margins. As the project industry shifts to Healthcare or Institutional, profit margins and change in margin decrease drastically.</p>
+        </div>
+      </div>
+
+      <!-- DURATION < 1 YR GUIDANCE -->
+      <div id="guidance_duration_less" class="is-hidden mt-5">
+        <h3 class="is-size-4 mb-3">Project Duration (&lt;1 Year) — Impact on Profit Margin</h3>
+        <table class="table is-bordered is-striped" style="margin: 0 auto">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Duration Threshold</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Full Dataset FPM</td><td>≤ 101 Days</td><td class="has-text-danger">Lower-than-average FPM (-11%)</td></tr>
+            <tr><td>Full Dataset FPM</td><td>101 – 146.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
+            <tr><td>Full Dataset FPM</td><td>&gt; 146.5 Days</td><td class="has-text-success">Positive but lower FPM (+7%)</td></tr>
+            <tr><td>Full Dataset CIM</td><td>≤ 115.5 Days</td><td class="has-text-danger">Severely low CIM (-76%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>≤ 10.5 Days</td><td class="has-text-success">High FPM (+20%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>≤ 80 Days</td><td class="has-text-success">High FPM (+21%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>&gt; 80 Days</td><td class="has-text-success">Highest FPM path (+24%)</td></tr>
+            <tr><td>Time &amp; Materials FPM</td><td>≤ 374.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
+          </tbody>
+        </table>
+        <div class="box mt-4">
+          <p>Projects that have a duration less than 101 days will typically lead to lower profit margins, with a possibility for negative profit margins. Projects between 101 and 146.5 days will typically lead to the highest profit margins. Projects with durations longer than 146.5 days typically still lead to positive profit margins but not as high as projects in the 101 to 146.5 day range.</p>
+          <p class="mt-3"><strong>Recommendation:</strong> Projects with durations greater than 101 days should be prioritized for maximizing profit margins. As the duration exceeds 146.5 days, profit margins decrease but are still typically positive.</p>
+        </div>
+      </div>
+
+      <!-- DURATION > 1 YR GUIDANCE -->
+      <div id="guidance_duration_great" class="is-hidden mt-5">
+        <h3 class="is-size-4 mb-3">Project Duration (&gt;1 Year) — Impact on Profit Margin</h3>
+        <table class="table is-bordered is-striped" style="margin: 0 auto">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Duration Threshold</th>
+              <th>Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Full Dataset CIM</td><td>≤ 900.5 Days</td><td class="has-text-danger">Below-average CIM (-9%)</td></tr>
+            <tr><td>Full Dataset CIM</td><td>&gt; 900.5 Days</td><td class="has-text-success">Above-average CIM (+1%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>≤ 341.5 Days</td><td class="has-text-danger">Below-average FPM (-4%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>&gt; 341.5 Days</td><td class="has-text-success">Above-average FPM (+4%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>≤ 647 Days</td><td class="has-text-danger">Below-average FPM for LS (+12%)</td></tr>
+            <tr><td>Lump Sum FPM</td><td>&gt; 647 Days</td><td class="has-text-success">Above-average FPM for LS (+15%)</td></tr>
+            <tr><td>GMP FPM</td><td>≤ 101 Days</td><td class="has-text-danger">Lower-than-average FPM (-10%)</td></tr>
+            <tr><td>GMP FPM</td><td>&gt; 101 Days</td><td class="has-text-success">Above-average FPM (+7%)</td></tr>
+            <tr><td>GMP FPM</td><td>≤ 866 Days</td><td>Moves down the tree to evaluate the team's Proactivity</td></tr>
+            <tr><td>GMP FPM</td><td>&gt; 866 Days</td><td class="has-text-success">Below-average FPM for GMP (+9%)</td></tr>
+            <tr><td>Time &amp; Materials FPM</td><td>&gt; 374.5 Days</td><td class="has-text-danger">Severely low FPM (+1%)</td></tr>
+          </tbody>
+        </table>
+        <div class="box mt-4">
+          <p>Projects that have a duration less than 115.5 days will typically lead to a severely low change in margin. Projects between 115.5 and 900.5 days will typically lead to a below-average change in margin. Projects with durations longer than 900.5 days typically lead to a positive, above-average change in margin. For Lump Sum contracts, longer durations consistently push profit margins higher.</p>
+          <p class="mt-3"><strong>Recommendation:</strong> For long-duration projects, prioritize Lump Sum contracts. Avoid Time &amp; Materials contracts for projects exceeding 374.5 days. Projects with durations greater than 900.5 days should be prioritized for maximizing change in margin.</p>
+        </div>
+      </div>
+
       <!-- CONTRACT TYPE GUIDANCE -->
       <div id="guidance_contract_type" class="is-hidden mt-5">
         <h3 class="is-size-4 mb-3">Contract Type — Impact on Profit Margin</h3>
         <table class="table is-bordered is-striped" style="margin: 0 auto">
           <thead>
-            <tr><th>Contract Type</th><th>Model</th><th>Metric</th><th>Impact</th></tr>
+            <tr>
+              <th>Contract Type</th>
+              <th>Model</th>
+              <th>Metric</th>
+              <th>Impact</th>
+            </tr>
           </thead>
           <tbody>
             <tr><td>Lump Sum (LS)</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.014)</td></tr>
@@ -136,112 +218,7 @@
         </div>
       </div>
 
-      <!-- DURATION GUIDANCE < 1yr -->
-      <div id="guidance_duration_less" class="is-hidden mt-5">
-        <h3 class="is-size-4 mb-3">Project Duration (&lt;1 Year) — Impact on Profit Margin</h3>
-        <table class="table is-bordered is-striped" style="margin: 0 auto">
-          <thead>
-            <tr><th>Model</th><th>Duration Threshold</th><th>Impact</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Full Dataset FPM</td><td>≤ 101 Days</td><td class="has-text-danger">Lower-than-average FPM (-11%)</td></tr>
-            <tr><td>Full Dataset FPM</td><td>101 – 146.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
-            <tr><td>Full Dataset FPM</td><td>&gt; 146.5 Days</td><td class="has-text-success">Positive but lower FPM (+7%)</td></tr>
-            <tr><td>Full Dataset CIM</td><td>≤ 115.5 Days</td><td class="has-text-danger">Severely low CIM (-76%)</td></tr>
-            <tr><td>Lump Sum FPM</td><td>≤ 80 Days</td><td class="has-text-success">High FPM (+21%)</td></tr>
-            <tr><td>Lump Sum FPM</td><td>&gt; 80 Days</td><td class="has-text-success">Highest FPM path (+24%)</td></tr>
-            <tr><td>Time &amp; Materials FPM</td><td>≤ 374.5 Days</td><td class="has-text-success">Above-average FPM (+14%)</td></tr>
-          </tbody>
-        </table>
-        <div class="box mt-4">
-          <p>For shorter projects, duration has a significant impact on profit margins. Projects under 101 days tend to underperform, while those in the 101–146.5 day range typically yield the highest margins. Lump Sum and Time &amp; Materials contracts perform well in this range.</p>
-          <p class="mt-3"><strong>Recommendation:</strong> Aim for project durations between 101 and 146.5 days to maximize profit margins on shorter projects.</p>
-        </div>
-      </div>
-
-      <!-- DURATION GUIDANCE > 1yr -->
-      <div id="guidance_duration_great" class="is-hidden mt-5">
-        <h3 class="is-size-4 mb-3">Project Duration (&gt;1 Year) — Impact on Profit Margin</h3>
-        <table class="table is-bordered is-striped" style="margin: 0 auto">
-          <thead>
-            <tr><th>Model</th><th>Duration Threshold</th><th>Impact</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Full Dataset CIM</td><td>≤ 900.5 Days</td><td class="has-text-danger">Below-average CIM (-9%)</td></tr>
-            <tr><td>Full Dataset CIM</td><td>&gt; 900.5 Days</td><td class="has-text-success">Above-average CIM (+1%)</td></tr>
-            <tr><td>Lump Sum FPM</td><td>&gt; 341.5 Days</td><td class="has-text-success">Above-average FPM (+4%)</td></tr>
-            <tr><td>Lump Sum FPM</td><td>&gt; 647 Days</td><td class="has-text-success">Above-average FPM for LS (+15%)</td></tr>
-            <tr><td>GMP FPM</td><td>&gt; 866 Days</td><td class="has-text-success">Below-average FPM for GMP (+9%)</td></tr>
-            <tr><td>Time &amp; Materials FPM</td><td>&gt; 374.5 Days</td><td class="has-text-danger">Severely low FPM (+1%)</td></tr>
-          </tbody>
-        </table>
-        <div class="box mt-4">
-          <p>For longer projects, Lump Sum contracts tend to perform better as duration increases beyond 341.5 days. Time &amp; Materials contracts see significantly reduced margins on longer projects. Change in margin improves slightly for very long projects (over 900 days).</p>
-          <p class="mt-3"><strong>Recommendation:</strong> For long-duration projects, prioritize Lump Sum contracts. Avoid Time &amp; Materials contracts for projects exceeding one year.</p>
-        </div>
-      </div>
-
-      <!-- PERSONALITY GUIDANCE -->
-      <div id="guidance_personality" class="is-hidden mt-5">
-        <h3 class="is-size-4 mb-3">Personality Factors — Impact on Profit Margin</h3>
-        <table class="table is-bordered is-striped" style="margin: 0 auto">
-          <thead>
-            <tr><th>Personality Trait</th><th>Model</th><th>Metric</th><th>Impact</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Primary Extroversion</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.0013)</td></tr>
-            <tr><td>Primary Extroversion</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.011)</td></tr>
-            <tr><td>Env. Adj. Dominance</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.001)</td></tr>
-            <tr><td>Env. Adj. Dominance</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.0012)</td></tr>
-            <tr><td>Proactivity</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.0104)</td></tr>
-            <tr><td>Proactivity</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.051)</td></tr>
-            <tr><td>Reflector Learning Style</td><td>Full Dataset</td><td>FPM</td><td class="has-text-success">Increases (+0.022)</td></tr>
-            <tr><td>Reflector Learning Style</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.23)</td></tr>
-            <tr><td>Pragmatist Learning Style</td><td>Full Dataset</td><td>CIM</td><td class="has-text-success">Increases (+0.016)</td></tr>
-            <tr><td>Primary Patience</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.0016)</td></tr>
-            <tr><td>Energy Level</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.018)</td></tr>
-          </tbody>
-        </table>
-        <div class="box mt-4">
-          <p>Teams that have lower primary extroversion and lower environmental adjustment dominance will typically lead to higher profit margins. Teams with higher proactivity and a "Reflector" learning style will typically lead to the highest final profit margins, while teams with a "Pragmatist" learning style will typically lead to the highest change in margin.</p>
-          <p class="mt-3"><strong>Recommendation:</strong> Teams with highly proactive individuals, reflective thinkers, and lower extroversion should be prioritized for maximizing profit margins.</p>
-        </div>
-      </div>
-
-      <!-- INDUSTRY GUIDANCE -->
-      <div id="guidance_industry" class="is-hidden mt-5">
-        <h3 class="is-size-4 mb-3">Industry — Impact on Profit Margin</h3>
-        <table class="table is-bordered is-striped" style="margin: 0 auto">
-          <thead>
-            <tr><th>Industry</th><th>Model</th><th>Metric</th><th>Impact</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Healthcare</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.049)</td></tr>
-            <tr><td>Healthcare</td><td>Full Dataset</td><td>CIM</td><td class="has-text-danger">Decreases (-0.101)</td></tr>
-            <tr><td>Healthcare</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.051)</td></tr>
-            <tr><td>Institutional</td><td>Full Dataset</td><td>FPM</td><td class="has-text-danger">Decreases (-0.100)</td></tr>
-            <tr><td>Institutional</td><td>Full Dataset</td><td>CIM</td><td class="has-text-danger">Decreases (-0.156)</td></tr>
-            <tr><td>Institutional</td><td>GMP Contracts</td><td>FPM</td><td class="has-text-danger">Decreases (-0.16)</td></tr>
-            <tr><td>Industrial</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.038)</td></tr>
-            <tr><td>Power</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.26)</td></tr>
-            <tr><td>Other</td><td>LS Contracts</td><td>FPM</td><td class="has-text-success">Increases (+0.18)</td></tr>
-          </tbody>
-        </table>
-        <div class="box mt-4">
-          <p>Projects that are in the Power, Industrial, or "Other" industries will typically lead to higher profit margins, particularly when paired with Lump Sum contracts. Projects in the Healthcare and Institutional industries will typically lead to lower profit margins and a severely low change in margin.</p>
-          <p class="mt-3"><strong>Note:</strong> Commercial projects did not show statistically significant impacts on profit margin in the study and are therefore not included in the table above.</p>
-          <p class="mt-3"><strong>Recommendation:</strong> Projects in the Power and Industrial sectors should be prioritized for maximizing profit margins. As the project industry shifts to Healthcare or Institutional, profit margins and change in margin decrease drastically.</p>
-        </div>
-      </div>
-
-      <!-- REVENUE GUIDANCE -->
-      <div id="guidance_revenue" class="is-hidden mt-5">
-        <div class="box">
-          <p>Revenue-based guidance is not yet available. For team building recommendations, please refer to the <strong>Company Wide</strong> filter for personality trait guidance, or select a specific <strong>Industry</strong> or <strong>Contract Type</strong> for more targeted insights.</p>
-        </div>
-      </div>
-
-    </div><!-- end guidance_div -->
+    </div>
 
     <div id="estimator_div" class="p-6 is-hidden">
       <h1 class="is-size-1">Team Performance Estimator</h1>
@@ -434,6 +411,7 @@
         </div>
       </div>
 
+      <!-- Tool Hints: only "Understanding the Success Estimate" kept, Team Building Hints removed -->
       <div id="tool_hints" class="is-hidden">
         <h3 class="is-size-3">Understanding the Success Estimate</h3>
         <p class="is-size-6 py-3">
@@ -441,52 +419,6 @@
           It is suggested to look at the 'Results' row and try to change team members until you get a '3rd quartile' or 'Top 1/4' result.<br /><br />
           From testing, the tool correctly guesses an above average team 64% of the time.
         </p>
-        <h3 class="is-size-3">Team Building Hints</h3>
-        <p class="is-size-6 py-3">
-          If you're having trouble finding a good team, checkout the suggestions below.
-        </p>
-        <div class="has-background-danger-dark p-2">
-          <div class="select">
-            <select name="performance_guidance_filter" id="performance_guidance_filter">
-              <option value="Company_Wide">Company Wide</option>
-              <option value="null">-------------------------</option>
-              <option value="Commercial">Industry: Commercial</option>
-              <option value="Industrial">Industry: Industrial</option>
-              <option value="Healthcare">Industry: Healthcare</option>
-              <option value="Power">Industry: Power</option>
-              <option value="Institutional">Industry: Institutional</option>
-              <option value="null">-------------------------</option>
-              <option value="1M-3M">Revenue: 1M-3M</option>
-              <option value="3M-10M">Revenue: 3M-10M</option>
-              <option value="10M+">Revenue: 10M+</option>
-              <option value="null">-------------------------</option>
-              <option value="less_yr">Length: &lt;1yr</option>
-              <option value="great_yr">Length: &gt;1yr</option>
-              <option value="null">-------------------------</option>
-              <option value="LS">Contract Type: LS</option>
-              <option value="T&M">Contract Type: T&amp;M</option>
-              <option value="GMP">Contract Type: GMP</option>
-              <option value="T&M-GMP">Contract Type: T&amp;M-GMP</option>
-              <option value="ILPD">Contract Type: ILPD</option>
-            </select>
-          </div>
-        </div>
-        <div id="lin_mod_all" class="box">The full model relies on elements from the Project Manager and Project Coordinator - try changing the staffing to this role.</div>
-        <div id="lin_mod_commercial" class="box">The commercial model relies only on the number of employees per million dollars. Can increase number of employees staffed to project.</div>
-        <div id="lin_mod_industrial" class="box">The industrial model relies only on the number of employees per million dollars. Can increase number of employees staffed to project.</div>
-        <div id="lin_mod_healthcare" class="box">The healthcare model relies on a number of variables and should change easily by adjusting the proposed team.</div>
-        <div id="lin_mod_power" class="box">The power model relies only on the number of employees per million dollars. Can increase number of employees staffed to project.</div>
-        <div id="lin_mod_institutional" class="box">The institutional model relies on elements from the Project Manager - try changing the staffing to this role.</div>
-        <div id="lin_mod_1M-3M" class="box">The $1M-3M model relies on elements from the Project Manager - try changing the staffing to this role.</div>
-        <div id="lin_mod_3M-10M" class="box">The $3M-10M model relies on a number of variables and should change easily by adjusting the proposed team.</div>
-        <div id="lin_mod_10M" class="box">The $10M+ model relies on elements from the Project Manager, Project Executive, and the team as a whole.</div>
-        <div id="lin_mod_lessyr" class="box">The less than one year model only relies on the distance from the corporate office and cannot be changed.</div>
-        <div id="lin_mod_greatyr" class="box">The greater than one year model relies on elements from the Project Manager, Project Engineer, Project Coordinator, and Project Executive.</div>
-        <div id="lin_mod_LS" class="box">The lump sum model relies only on the number of employees per million dollars. You can try increasing the number of employees staffed to project.</div>
-        <div id="lin_mod_TM" class="box">The Time and Material model relies on a number of variables and should change easily by adjusting the proposed team.</div>
-        <div id="lin_mod_GMP" class="box">The Guaranteed Max Price model relies on the Superintendent and Project Coordinator.</div>
-        <div id="lin_mod_TM-GMP" class="box">The Time and Material with a GMP model relies on the Project Manager, Project Engineer, Superintendent, and Project Executive.</div>
-        <div id="lin_mod_ILPD" class="box">The Integrated Lean Project Delivery model guidance will be updated soon.</div>
       </div>
     </div>
 
